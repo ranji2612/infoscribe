@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Create a New Project</h3><hr/>
+        <form method="post" action="/change" name="submit" enctype="multipart/form-data">
+                
+            <input class="form-control input" placeholder="Name of Project" ng-model = "name" required/><br/>
+            <h4>Deadline</h4>
+            <input class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy"/> <br/>
+            <textarea class="form-control input" placeholder="Description of Project" ng-model = "desc"/><br/>
+            <input class="form-control input" placeholder="Keywords" ng-model = "keywords" required/><br/>
+            <h4>Privacy</h4>
+            <div class="radio col-sm-12">
+                <label class="col-sm-6"><input type="radio" name="radio1" ng-model="privacy" value="public">Public</label>
+                <label class="col-sm-6"><input type="radio" name="radio1" ng-model="privacy" value="private">Private</label>
+            </div>
+            <br/><br/>
+            <h4>Associated Files</h4>
+            <input type="file" name="file1" class="" multiple/>
+            <br/><br/>
+            <hr class=""/>
+            <button class="form-control btn-primary">Create</button>
+        </form>
+        
+    </div>
+</div>

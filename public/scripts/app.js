@@ -7,6 +7,10 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl	:	'html/projectsSearch.html',
         controller	:	'projectsSearchCtrl'
 	})
+    .when('/create', {
+        templateUrl	:	'html/createProject.html',
+        controller	:	'createProjectCtrl'
+	})
     .otherwise({ redirectTo: '/' });
 	
     // use the HTML5 History API
