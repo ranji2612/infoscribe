@@ -1,0 +1,72 @@
+<style>
+    .sectionTitle {
+		font-weight: 100;
+		text-align: left;
+		border-bottom: 2px solid #0A0;
+		padding-top: 20px;
+		padding-bottom: 5px;
+	}
+	.courserow {
+        font-size:10px;
+        background:#FFF;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+	.courserow:hover {
+        background: #FFF;
+        text-decoration:none;
+        box-shadow: 0px 0px 10px #888888;
+        border-left: 3px solid #123;
+    }
+    .details {
+        font-size:9px;
+        /* Light Version 
+        border-top : 1px solid #DDD;
+        background: #FAFAFA;
+        */
+        /* Dark Version */
+        background:#222;
+        color: #EEE;
+        text-decoration:none;
+        max-height: 300px;
+        overflow-y: hidden;
+    }
+    .details a,h6 {
+        text-decoration:none;
+        color: #A4C5A1;
+    }
+    .prof {
+        font-size: bold;
+    }
+    .glyphicon.glyphicon-collapse-down {
+        font-size: 25px;
+    }
+    .glyphicon.glyphicon-collapse-up{
+        font-size: 25px;
+    }
+</style>
+<!-- 
+<h4>Courses</h4>
+-->
+<!-- Search bar -->
+
+
+<!-- Course List Based on categories -->
+
+<!-- For each Category -->
+
+<!-- for each course in category -->
+<div class="col-sm-12">
+    <input type="text" class="form-control" ng-model="searchText" placeholder="Search anything.."/><br/>
+</div>
+
+<hr/>
+<h3>Projects</h3>
+<div class="col-sm-12 btn-info">
+ <h5><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add New Project</h5>
+</div>
+
+<div class="col-sm-12" ng-repeat="project in projects">
+    {{project}}
+</div>
+

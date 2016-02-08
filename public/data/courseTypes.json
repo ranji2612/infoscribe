@@ -1,0 +1,8 @@
+[
+    {"code":"ARCH","name":"Architecture","subject":"ARCH"},
+    {"code":"VS","name":"Visual Studies","subject":"ARCH"},
+    {"code":"HP","name":"Historic Preservation","subject":"ARCH"},
+    {"code":"UP","name": "Urban Planning","subject":"PLAN"},
+    {"code":"NYP","name":"Shape of 2 Cities, New York/Paris","subject":"ARCH"},
+    {"code":"RED","name":"Real Estate Development","subject":"PLAN"}
+]
