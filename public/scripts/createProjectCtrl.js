@@ -4,4 +4,6 @@ app.controller('createProjectCtrl', function($scope,$http) {
         startDate: '-3d'
     });
     $scope.privacy="public";
+    
+    
 });

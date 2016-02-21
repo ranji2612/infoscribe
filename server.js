@@ -1,35 +1,56 @@
-//------------------------------ set up -----------------------------------------
+
+//Initial configuration
 var express  = require('express');
 var app      = express(); 								// create our app w/ express
 var mongoose = require('mongoose'); 					// mongoose for mongodb
-var port  	 = process.env.PORT || 8080; 				// set the port
+var bodyParser     = require('body-parser');			// To fetch data during posts
+var port  	 = process.env.PORT || 8000; 				// set the port
 var database = require('./config/database'); 			// load the database config
-var passport = require('passport');
-var flash = require('connect-flash');
 
-// ----------------------------------------- configuration -------------------------------------
 var db = mongoose.connect(database.url);	// connect to mongoDB database on modulus.io
-require('./config/passport')(passport); // pass passport for configuration
 
-app.configure(function() {
-	app.use(express.static(__dirname + '/public')); 		// For core functionality
-	app.use(express.static(__dirname + '/public/html')); 	// For all HTML files
-	app.use(express.static(__dirname + '/public/css')); 	// For all the corresponding css files
-	app.use(express.static(__dirname + '/public/Bootstrap')); 	// For all the corresponding css files
-	
-	app.use(express.logger('dev')); 						// log every request to the console
-	app.use(express.cookieParser()); 						// read cookies (needed for auth)
-	app.use(express.bodyParser()); 							// pull information from html in POST
-	app.use(express.methodOverride()); 						// simulate DELETE and PUT
-	app.use(express.session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-	app.use(passport.initialize());
-	app.use(passport.session()); 							// persistent login sessions
-	app.use(flash()); 
+// auth related
+var passport = require('passport');
+var flash 	 = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+
+//For loggin
+var log4js = require("log4js");
+var morgan = require('morgan');
+
+// required for passport
+app.use(session({ secret: 'jhhsdjakorijfsmdhtuypaswlmdjfk' })); // session secret
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+
+//Middle-tier configuration
+
+app.use(bodyParser.urlencoded({ extended: false }))    // parse application/x-www-form-urlencoded
+app.use(bodyParser.json())    // parse application/json
+app.use(cookieParser())
+
+//Log requests
+var theAppLog = log4js.getLogger();
+var theHTTPLog = morgan("combined",{
+  "stream": {
+    write: function(str) { theAppLog.debug(str); }
+  }
 });
+//app.use(theHTTPLog);
 
-//----------------------------------------- routes -----------------------------------------
-require('./app/routes.js')(app, passport);
+//static folder
+app.use(express.static(__dirname + '/public')); 	// set the static files location
+app.use(express.static(__dirname + '/scripts')); 	// set the static files location
 
-//------------------- Start your Engines :P (listen )-----------------------------------------
-app.listen(port)
-console.log("App listening on port " + port);
+// pass passport for configuration
+require('./config/passport')(passport);
+require('./app/routes.js')(app,passport);
+
+
+//Start the awesomeness
+app.listen(8080);	
+console.log('Magic happens on port 8080'); 

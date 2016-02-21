@@ -1,4 +1,4 @@
-	var MyTask = require('./models/task');
+var MyTask = require('./models/task');
 
 module.exports = function(app, passport) {
 
