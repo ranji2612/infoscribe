@@ -66,7 +66,12 @@
  <h5><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add New Project</h5>
 </a>
 
-<div class="col-sm-12" ng-repeat="project in projects">
-    {{project}}
+<div ng-repeat="project in projects">
+    <div class="col-sm-12 btn project" style="text-align:left;background-color:white;margin-top:10px;">
+        <strong>{{project.name}}</strong> <small><i>{{project.visibility}}</i></small>
+        <p>{{project.desc}}</p>
+        <strong><small>{{project.user}}</small></strong>
+    </div>
+    <br/><br/>
 </div>
 

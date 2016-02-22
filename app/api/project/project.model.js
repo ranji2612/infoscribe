@@ -2,11 +2,6 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var dbSchema = new Schema({
-	'pollId'	: String,
-	'choice'	: String,
-	'votes'		: Number,
-	'lastUpd'	: Number
-  	},{ collection: 'projects' });
+var dbSchema = new Schema({},{strict: false});
 
-module.exports = mongoose.model('projects', dbSchema);
+module.exports = mongoose.model('project', dbSchema);
