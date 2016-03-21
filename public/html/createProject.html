@@ -1,35 +1,39 @@
 <div class="row">
     <div class="col-sm-12">
         <h3>Create a New Project</h3><hr/>
-        <form method="post" action="/api/project/create" name="submit" enctype="multipart/form-data">
-                
-            <input name="name" class="form-control input" placeholder="Name of Project" ng-model = "name" required/><br/>
-            <h4>Deadlines</h4>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>Transcription Deadline</h5>
-                    <input name = "transcDeadline" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy"/> <br/>
+        <div>
+            <!--
+            <form method="post" action="/api/project" name="submit" enctype="multipart/form-data">
+            -->  
+            <form ng-submit="createProject()">
+                <input name="name" class="form-control input" placeholder="Name of Project" ng-model = "name" required/><br/>
+                <h4>Deadlines</h4>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h5>Transcription Deadline</h5>
+                        <input name = "transcDeadline" ng-model = "transcDeadline" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/> <br/>
+                    </div>
+                    <div class="col-xs-6">
+                        <h5>Embargo Date</h5>
+                        <input name = "embargoDate" ng-model="embargoDate" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/> <br/>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <h5>Embargo Date</h5>
-                    <input name = "embargoDate" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy"/> <br/>
+                <textarea class="form-control input" placeholder="Description of Project" name = "desc" ng-model = "desc"/><br/>
+                <input name = "keywords" ng-model = "keywords" class="form-control input" placeholder="Keywords" required/><br/>
+                <h4>Privacy</h4>
+                <div class="radio col-sm-12">
+                    <label class="col-sm-6"><input type="radio" name="radio1" ng-model="visibility" value="public">Public</label>
+                    <label class="col-sm-6"><input type="radio" name="radio1" ng-model="visibility" value="private">Private</label>
                 </div>
-            </div>
-            <textarea class="form-control input" placeholder="Description of Project" ng-model = "desc"/><br/>
-            <input name = "keywords" class="form-control input" placeholder="Keywords" ng-model = "keywords" required/><br/>
-            <h4>Privacy</h4>
-            <div class="radio col-sm-12">
-                <label class="col-sm-6"><input type="radio" name="radio1" ng-model="privacy" value="public">Public</label>
-                <label class="col-sm-6"><input type="radio" name="radio1" ng-model="privacy" value="private">Private</label>
-            </div>
-            <br/><br/>
-            <h4>Associated Files</h4>
-            <!-- <button class="btn btn-info">Add File</button> -->
-            <input type="file" name="file1" class="" multiple />
-            <br/><br/>
-            <hr class=""/>
-            <button class="form-control btn-primary">Create</button>
+                <br/><br/>
+                <hr/>
+                <button class="form-control btn-primary">Create</button>
+            </form>
+        </div>
+        
+        <!--
         </form>
+        -->
         
     </div>
 </div>

@@ -35,13 +35,27 @@ app.get('/:projectId', function(req,res) {
 
 });
 
-app.post('/create',upload.array(), function(req,res) {
+app.post('/',upload.array(), function(req,res) {
     console.log(req.user);
-    project.create(req.body, function(err, data){
-        if(data.length===0)
-            console.log('error : ',err);
-        console.log(data);
-        res.send(200);
+    //Validate req.body - Pending
+    
+    project.find({name:req.body.name},function(err,data){
+        
+        //If Project name already exists
+        if (data.length>0)
+            res.json({"status":"error","message":"Project Name already exists"});
+        else {
+            var newProject = req.body;
+            newProject["nod"] = 0;
+            newProject["notd"] = 0;
+            newProject["status"] = "draft";
+            console.log(newProject);
+            project.create(newProject,function(err,newData){
+                if (err)
+                    res.json({"status":"error","error":err,"message":err.message});
+                res.json({"status":"success","data":newData});
+            });
+        }
     });
 });
 
