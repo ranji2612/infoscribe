@@ -6,4 +6,6 @@ InfoScribe
         - Clone the project
         
         - Start Mongo DB server
-        - From inside the folder, run 'node server.js'
+            > mongodb
+        - From inside the folder, run 
+            > node server.js

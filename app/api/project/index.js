@@ -15,7 +15,6 @@ var upload = multer({dest:'tmp/'});
 
 
 app.get('/all', function(req,res) {
-    console.log('Reached project getall');
     project.find({}, function(err, data){
         if(data.length===0)
             console.log('error : ',err);
@@ -24,8 +23,9 @@ app.get('/all', function(req,res) {
     });
 });
 
+
 app.get('/:projectId', function(req,res) {
-    console.log('Reached project find');
+    console.log(req.user);
     project.find({"_id" : ObjectId(req.params.projectId)}, function(err, data){
         if(data.length===0)
             console.log('error : ',err);
@@ -36,8 +36,7 @@ app.get('/:projectId', function(req,res) {
 });
 
 app.post('/create',upload.array(), function(req,res) {
-    console.log('Reached project Create');
-    console.log(req.body);
+    console.log(req.user);
     project.create(req.body, function(err, data){
         if(data.length===0)
             console.log('error : ',err);

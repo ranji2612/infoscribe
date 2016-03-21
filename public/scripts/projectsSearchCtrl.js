@@ -5,6 +5,7 @@ app.controller('projectsSearchCtrl', function($scope,$http) {
         $http.get('/api/project/all')
         .success(function (data){
             $scope.projects = data;
+            console.log(data);
         })
         .error(function(err){
             console.log(err);
