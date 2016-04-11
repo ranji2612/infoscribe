@@ -7,7 +7,6 @@ app.controller('createProjectCtrl', function($scope,$http, $location) {
     
     //On Create press
     $scope.createProject = function() {
-        console.log('create pressed');
         
         //Form data
         var formData = {"name":$scope.name, desc: $scope.desc, visibility:$scope.visibility, transcDeadline:(new Date($scope.transcDeadline)).valueOf(), embargoDate:(new Date($scope.embargoDate)).valueOf(), keywords:$scope.getKeywords()};
@@ -22,6 +21,8 @@ app.controller('createProjectCtrl', function($scope,$http, $location) {
                 $location.path('/project/'+data.data._id);
             } else {
                 console.log(data);
+                
+                $scope.errorMsg = data.message;
             }
         })
         .error(function(err){
@@ -32,7 +33,7 @@ app.controller('createProjectCtrl', function($scope,$http, $location) {
     
                
     $scope.getKeywords = function() {
-        var keywords = $scope.keywords.split(';');
+        var keywords = $scope.keywords.split(',');
         return keywords;
     };
 });

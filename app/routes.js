@@ -1,10 +1,10 @@
-var MyTask = require('./models/task');
 
 module.exports = function(app, passport) {
 
 	// api ---------------------------------------------------------------------
 	//Importing other APIS
 	app.use('/api/project', require('./api/project'));
+	app.use('/api/upload', require('./api/upload'));
 	
 	// application -------------------------------------------------------------
 	app.get('/login', function(req, res) {

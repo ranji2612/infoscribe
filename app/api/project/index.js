@@ -35,11 +35,19 @@ app.get('/:projectId', function(req,res) {
 
 });
 
-app.post('/',upload.array(), function(req,res) {
+//Creating a new project
+app.post('/', function(req,res) {
     console.log(req.user);
     //Validate req.body - Pending
     
+    if(req.params.projectId != req.body.projectId) {
+        res.json({"status":"error","error":"Project Id didnt match"});
+    }
+    //Check if already exists
     project.find({name:req.body.name},function(err,data){
+        //Find errored
+        if (err) 
+            res.json({"status":"error","error":err, "message":"Project Name already exists"});
         
         //If Project name already exists
         if (data.length>0)
@@ -50,6 +58,8 @@ app.post('/',upload.array(), function(req,res) {
             newProject["notd"] = 0;
             newProject["status"] = "draft";
             console.log(newProject);
+            
+            //If passes the conditions then create a new project
             project.create(newProject,function(err,newData){
                 if (err)
                     res.json({"status":"error","error":err,"message":err.message});
@@ -59,13 +69,16 @@ app.post('/',upload.array(), function(req,res) {
     });
 });
 
+
 app.put('/:projectId', function(req,res) {
-    
-    projects.update(req.body, function(err, data){
+    console.log('==================');
+    console.log(req.params.projectId);
+    console.log(req.body);
+    project.update({"_id": ObjectId(req.params.projectId)},req.body, function(err, data){
         if(data.length===0)
-            console.log('error : ',err);
+            res.json({"status":"error","error":err,"message":err.message});
         console.log(data);
-        res.json(data);
+        res.json({"status":"success","data":data});
     });
 });
 

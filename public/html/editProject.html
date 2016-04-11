@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h3>{{project.name}}</h3><hr/>
+        <div>
+            <form ng-submit="updateProject()">
+                <input name="name" class="form-control input" placeholder="Name of Project" ng-model = "project.name" required/><br/>
+                <h4>Deadlines</h4>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h5>Transcription Deadline</h5>
+                        <input id="transcDeadline" name = "transcDeadline" ng-model = "project.transcDeadline" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/> <br/>
+                    </div>
+                    <div class="col-xs-6">
+                        <h5>Embargo Date</h5>
+                        <input id="embargoDate" name = "embargoDate" ng-model="project.embargoDate" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/> <br/>
+                    </div>
+                </div>
+                <textarea class="form-control input" placeholder="Description of Project" name = "desc" ng-model = "project.desc"/><br/>
+                <input name = "keywords" ng-model = "project.keywords" class="form-control input" placeholder="Keywords (Separate them by commas ',')" required/><br/>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <h4>Privacy</h4>
+                        <div class="radio col-sm-12">
+                            <label class="col-sm-6"><input type="radio" name="radio1" ng-model="project.visibility" value="public">Public</label>
+                            <label class="col-sm-6"><input type="radio" name="radio1" ng-model="project.visibility" value="private">Private</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Status</h4>
+                        <div class="radio col-sm-12">
+                            {{project.status}}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status -->
+                <br/>
+                <!-- File Upload Part -->
+                
+                <br/>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-6"><button class="form-control btn-primary">Save</button></div>
+                    <div class="col-sm-6"><button class="form-control btn-warning" onclick="document.location='/'">Cancel</button></div>
+                </div>
+                
+            </form>
+        </div>
+        
+        <!--
+        </form>
+        -->
+        
+    </div>
+</div>

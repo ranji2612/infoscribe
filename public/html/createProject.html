@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <textarea class="form-control input" placeholder="Description of Project" name = "desc" ng-model = "desc"/><br/>
-                <input name = "keywords" ng-model = "keywords" class="form-control input" placeholder="Keywords" required/><br/>
+                <input name = "keywords" ng-model = "keywords" class="form-control input" placeholder="Keywords (Separate them by commas ',')" required/><br/>
                 <h4>Privacy</h4>
                 <div class="radio col-sm-12">
                     <label class="col-sm-6"><input type="radio" name="radio1" ng-model="visibility" value="public">Public</label>
@@ -27,7 +27,11 @@
                 </div>
                 <br/><br/>
                 <hr/>
-                <button class="form-control btn-primary">Create</button>
+                <div class="row">
+                    <div class="col-sm-6"><button class="form-control btn-primary">Create</button></div>
+                    <div class="col-sm-6"><button class="form-control btn-warning" onclick="document.location='/'">Cancel</button></div>
+                </div>
+                
             </form>
         </div>
         

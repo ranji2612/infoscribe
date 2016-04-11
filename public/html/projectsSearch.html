@@ -21,10 +21,11 @@
 </a>
 
 <div ng-repeat="project in projects">
-    <div class="col-sm-12  project" style="text-align:left;background-color:white;margin-top:10px;">
+    <div class="col-sm-12  project" style="text-align:left;background-color:white;margin-top:10px;padding-top:5px;">
         <strong><a href="/project/{{project._id}}">{{project.name}}</a></strong> <small><i>{{project.visibility}}</i></small>
         <p>{{project.desc}}</p>
         <strong><small>{{project.user}}</small></strong>
+        <small><a href="/project/{{project._id}}/edit">Edit</a></small>
     </div>
     <br/><br/>
 </div>
