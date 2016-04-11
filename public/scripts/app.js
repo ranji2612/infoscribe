@@ -1,4 +1,18 @@
-var app = angular.module('mainApp', ['ngRoute','ui.bootstrap']);
+var app = angular.module('mainApp', ['ngRoute','ui.bootstrap','flow'])
+.config(['flowFactoryProvider', function (flowFactoryProvider) {
+  flowFactoryProvider.defaults = {
+    target: '/api/upload',
+    permanentErrors: [404, 500, 501],
+    maxChunkRetries: 1,
+    chunkRetryInterval: 5000,
+    simultaneousUploads: 4
+  };
+  flowFactoryProvider.on('catchAll', function (event) {
+    console.log('catchAll', arguments,event);
+  });
+  // Can be used with different implementations of Flow.js
+  // flowFactoryProvider.factory = fustyFlowFactory;
+}]);
   
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -28,7 +42,9 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.controller('homeCtrl', function ($scope,$http,$location) {
 	console.log('Home control is under control :P ');
-    
+    $('.datepicker').datepicker({
+        startDate: '-3d'
+    });
     $scope.logout = function() {
         window.location.href = "/logout";
     };

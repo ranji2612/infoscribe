@@ -1,27 +1,61 @@
-<div>
-    <blockquote><strong><h4>{{projectInfo.name}}</h4></strong></blockquote>
-    <hr/>
-    <div>
-        <h5><strong>Description</strong></h5>
-        {{projectInfo.desc}}
-        <br/><br/>
+<div class="row panel">
+    <div class="col-sm-12">
+        <strong><h2>{{project.name}} &nbsp;&nbsp;<a href="/project/{{project._id}}/edit" class="btn btn-primary">Edit</a></h2></strong>
+    </div>
+</div>
+<div class="row panel">
+    <br/>
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+            <h5><strong>Description</strong></h5>
+            {{project.desc}}
+        </div>
+        <div class="col-xs-12"><br/><br/></div>
+        <div class="col-xs-12">
+            <div class="col-xs-4">
+                <h5><strong>Transcription Deadline</strong></h5><br/>
+                {{project.transcDeadline}}
+            </div>
+            <div class="col-xs-4">
+                <h5><strong>Embargo Date</strong></h5><br/>
+                {{project.embargoDate}}    
+            </div>
+            <div class="col-xs-4">
+                <h5><strong>Visibility</strong></h5><br/>
+                {{project.visibility}}    
+            </div>
+            
+        </div>
         
-        <h5><strong>Privacy Options</strong></h5>
-        {{projectInfo.visibility}}
-        <br/><br/>
+        <div class="col-xs-12"><br/><br/></div>
         
-        <h5><strong>Deadlines</strong></h5>
-        Transcription Deadline<br/>
-        {{projectInfo.transcDeadline}} <br/><br/>
-        Embargo Date<br/>
-        {{projectInfo.embargoDate}}<br/><br/>
+        <div class="col-sm-12">
+            <div class="col-sm-4">
+                <h5><strong>No. of Docs</strong></h5><br/>
+                {{project.nod}}
+            </div>
+            <div class="col-sm-4">
+                <h5><strong>No. of Docs Transcd</strong></h5><br/>
+                {{project.notd}}
+            </div>
+            <div class="col-sm-4">
+                <h5><strong>Status</strong></h5> <br/>
+                {{project.status}}
+            </div>
+        </div>
         
-        <h5><strong>Other Info</strong></h5>
-        <br/><br/>
-        
-        <h5><strong>Transcribing Files</strong></h5>
-        <br/><br/>
-        
+        <div class="col-xs-12"><br/><br/></div>
+        <h4>Files </h4>
+                    
+        <div class="col-xs-12">
+            <div class="col-xs-4" ng-repeat="filed in files" style="margin:5px;">
+                <center>
+                    <img src="/api/download/{{filed.identifier}}" width="100%"></td>
+                    {{file.name}}
+                </center>
+            </div>
+
+        </div>
     </div>
 </div>
 

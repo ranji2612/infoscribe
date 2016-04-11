@@ -4,11 +4,10 @@ module.exports = function(app, passport) {
 	// api ---------------------------------------------------------------------
 	//Importing other APIS
 	app.use('/api/project', require('./api/project'));
+	app.use('/api/files', require('./api/files'));
 	app.use('/api', require('./api/upload'));
-	app.get('/up',function(req, res){
-        res.sendfile('./public/public/index.html'); 
-    });
-	// application -------------------------------------------------------------
+	
+    // application -------------------------------------------------------------
 	app.get('/login', function(req, res) {
 		res.sendfile('./public/html/login.html'); // load the single view file (angular will handle the page changes on the front-end)
 	});

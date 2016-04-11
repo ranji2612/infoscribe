@@ -1,3 +1,6 @@
+//Model for uploaded images
+var uploadColl  = require('./upload.model');
+
 var mongoose 	= require('mongoose');
 var ObjectId 	= mongoose.Types.ObjectId;
 
@@ -23,15 +26,16 @@ var ACCESS_CONTROLL_ALLOW_ORIGIN = false;
 app.post('/upload', multipartMiddleware, function(req, res) {
     
   console.log('========= POST /upload');
-  /*
+  
     flow.post(req, function(status, filename, original_filename, identifier) {
-    console.log('POST', status, original_filename, identifier);
-    if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
-      res.header("Access-Control-Allow-Origin", "*");
-    }
-    res.status(status).send();
-  });
-  */
+        console.log('POST', status, original_filename, identifier);
+        if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
+          res.header("Access-Control-Allow-Origin", "*");
+        }
+        res.status(status).send();
+        
+    });
+  
 });
 
 
@@ -41,6 +45,12 @@ app.options('/upload', function(req, res){
     res.header("Access-Control-Allow-Origin", "*");
   }
   res.status(200).send();
+});
+
+
+//Delete an uploaded file
+app.delete('/upload',function(req, res) {
+    
 });
 
 // Handle status checks on chunks through Flow.js
@@ -62,7 +72,7 @@ app.get('/upload', function(req, res) {
   });
 });
 
-app.get('download/:identifier', function(req, res) {
+app.get('/download/:identifier', function(req, res) {
   console.log('======== Reached /download get');
   flow.write(req.params.identifier, res);
 });

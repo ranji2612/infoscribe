@@ -1,14 +1,13 @@
+<!DOCTYPE html>
 <html>
 <head>
-    
-    
-	<title>Infoscribe</title>
+    <title>Infoscribe</title>
 	<meta charset="utf-8" />
 	<!--  Meta tags for sharing -->
 	<!---->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <style>
         
@@ -20,6 +19,10 @@
         }
         .btn-primary {
             background-color: #252525;
+        }
+        .panel {
+            border: 2px #EEE solid;
+            background-color: #FFFFFF;
         }
         body {
           /* Margin bottom by footer height */
@@ -96,7 +99,7 @@
 </style>
     <base href="/">
 </head>
-<body ng-app="mainApp">
+<body ng-app="mainApp" flow-init>
 	<div ng-controller="homeCtrl">
 
 		<!-- Navbar -->
@@ -150,18 +153,23 @@
 		</div>
 	</footer>
     <!-- Loading scripts at the end -->
-	<script src="js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/angular.min.js"></script>
-    <script src="js/angular-route.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+    <!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/js/angular.min.js"></script>
+    <script src="/js/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="js/ui-bootstrap-0.9.0.min.js"></script>
+    <script type="text/javascript" src="/js/ui-bootstrap-0.9.0.min.js"></script>
+    <!-- Upload Flow js -->
+    <script src="/flow.js"></script>
+    <script src="/js/ng-flow-standalone.min.js"></script>
     <!-- Angular Scripts -->
-    <script src="scripts/app.js" ></script>
-    <script src="scripts/projectsSearchCtrl.js" ></script>
-    <script src="scripts/createProjectCtrl.js" ></script>
-    <script src="scripts/editProjectCtrl.js" ></script>
-    <script src="scripts/singleProjectCtrl.js" ></script>
+    <script src="/scripts/app.js" ></script>
+    <script src="/scripts/projectsSearchCtrl.js" ></script>
+    <script src="/scripts/createProjectCtrl.js" ></script>
+    <script src="/scripts/editProjectCtrl.js" ></script>
+    <script src="/scripts/singleProjectCtrl.js" ></script>
 	
 
 		<!-- End of Scripts -->

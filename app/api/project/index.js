@@ -57,6 +57,7 @@ app.post('/', function(req,res) {
             newProject["nod"] = 0;
             newProject["notd"] = 0;
             newProject["status"] = "draft";
+            //newProject["files"] = [];
             console.log(newProject);
             
             //If passes the conditions then create a new project
