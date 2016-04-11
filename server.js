@@ -15,6 +15,9 @@ var flash 	 = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 //For loggin
 var log4js = require("log4js");
 var morgan = require('morgan');
