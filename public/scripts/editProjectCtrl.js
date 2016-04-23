@@ -64,7 +64,7 @@ app.controller('editProjectCtrl', function($scope,$http, $location, $routeParams
         
         //Update the no of docs
         $scope.newValue.nod -= $scope.$flow.files.length;
-        
+                
         //Post call
         $http.put('/api/project/'+$scope.oldProjectData["_id"],$scope.newValue)
         .success(function(data){
@@ -81,7 +81,6 @@ app.controller('editProjectCtrl', function($scope,$http, $location, $routeParams
         .error(function(err){
             console.log(err);
         });
-        
         
     };
     
@@ -122,7 +121,8 @@ app.controller('editProjectCtrl', function($scope,$http, $location, $routeParams
                 .error(function(err){
                     console.log(err);
                 });
-        }  
+        }
+        $scope.$flow.files = [];
     };
     
     $scope.goToNormalPage = function() {
