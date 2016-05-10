@@ -4,6 +4,7 @@ module.exports = function(app, passport) {
 	// api ---------------------------------------------------------------------
 	//Importing other APIS
 	app.use('/api/project', require('./api/project'));
+	app.use('/api/transcribe', require('./api/project'));
 	app.use('/api/files', require('./api/files'));
 	app.use('/api', require('./api/upload'));
 	
