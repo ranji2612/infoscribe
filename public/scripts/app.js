@@ -33,6 +33,10 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl :   'html/editProject.html',
         controller  :   'editProjectCtrl'
     })
+    .when('/project/:projectId/exemplar/:fileId',{
+        templateUrl :   'html/exemplar.html',
+        controller  :   'exemplarCtrl'
+    })
     .otherwise({ redirectTo: '/' });
 	
     // use the HTML5 History API

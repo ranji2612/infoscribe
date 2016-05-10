@@ -102,6 +102,7 @@ app.controller('editProjectCtrl', function($scope,$http, $location, $routeParams
     };
     
     $scope.updateImageFiles = function() {
+        $scope.$flow.resume();
         //Updating values of image files
         console.log($scope.$flow.files);
         var newFiles = [];
@@ -122,6 +123,7 @@ app.controller('editProjectCtrl', function($scope,$http, $location, $routeParams
                     console.log(err);
                 });
         }
+        
         $scope.$flow.files = [];
     };
     
