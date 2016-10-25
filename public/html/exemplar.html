@@ -1,33 +1,53 @@
 <style>
-  #imgHolder{
-    display:inline-block;
-    min-height: 10px;
-    height: 100%;
-    width: 100%;
+  .closeFields {
+    display: block;
+    position: absolute;
+    width:15px;
+    height:15px;
+    top: 2px;
+    right: 2px;
+  }
+  .schemaFields{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: 15px;
   }
 </style>
 <div class="row" style="overflow:auto;">
   <!-- Title -->
-  <div class="col-sm-12">
+  <div class="col-sm-9">
     <h2>{{project.name}}</h2>
     <h4>{{file.name}}</h4>
+  </div>
+  <div class="col-sm-3" style="display:inline-flex;">
+    <button style="width:95%;padding:5px;margin:5px;" class="btn btn-primary">Save</button>
+    <button style="width:95%;padding:5px;margin:5px;" class="btn btn-secondary">Cancel</button>
   </div>
 </div>
 <br/>
 <div class="row" style="overflow:auto;">
     <!-- THe image part -->
-    <div class="col-xs-8" style="width=100%;" id="canvasHolder">
+    <div class="col-xs-9" style="width=100%;" id="canvasHolder">
         <canvas id="demo"></canvas>
          <!-- style="display:none;" -->
         <!-- <img src = '/api/download/{{file.identifier}}' height="100%" width="100%"/> -->
     </div>
-    <!-- Transcribing part -->
-    <div class="col-xs-4">
+    <!-- The Fields for the squares marked -->
+    <div class="col-xs-3">
         <!-- Schema is fixed for a project. Its one of the properties of project. Max of eight -->
-        <div ng-repeat="field in project.schema.fields">
-            <b>Type : {{field.t}}</b><br/>
-            <input class="form-control input"/>
-            <br/>
+        <div ng-repeat="field in savedRectangles track by $index"
+          class="col-sm-12 schemaFields">
+            <b>Field {{$index + 1}}</b><br/>
+            <div class="form-group">
+              <select class="form-control">
+                <option value="0">Select Type</option>
+                <option value="string">String</option>
+                <option value="number">Number</option>
+                <option value="date">Date</option>
+              </select>
+            </div>
+            <a class="closeFields" ng-click="removeField($index)">&times;</a>
         </div>
     </div>
 </div>

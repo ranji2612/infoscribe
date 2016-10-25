@@ -4,8 +4,8 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
     $scope.fileId = $routeParams.fileId;
     $scope.file = {};
     $scope.project = {};
-
-
+    $scope.savedRectangles = [];
+    $scope.fields = [[1,2,3]];
 
 
     // Exemplar Logic
@@ -15,12 +15,13 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
         img = new Image;
 
     ctx.strokeStyle = '#111';
+    ctx.font="20px Tahoma";
+    ctx.fillStyle = 'white';
     img.onload = start;
 
     var isDrawing = false,
     		startX = 0,
-        startY = 0,
-        savedRectangles = [];
+        startY = 0;
 
     function Line(ctx) {
       var me = this;
@@ -54,6 +55,15 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
      	drawLine(x+w,y,x+w,y+h);
     }
 
+    function rectFill(x, y, w, h) {
+      if (h<0) {
+        y = y + h;
+      }
+      for(var i=0; i<=Math.abs(h);i++) {
+    	   drawLine(x,y+i,x+w,y+i);
+       }
+    }
+
     function rectXY(x1, y1, x2, y2) {
     	var w = x2 - x1,
       		h = y2 - y1;
@@ -72,6 +82,7 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
     }
 
     function startSelection(e) {
+
       isDrawing = true;
       var r = canvas.getBoundingClientRect();
     	startX = e.clientX - r.left;
@@ -81,17 +92,25 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
     function endSelection(e) {
       isDrawing = false;
       var r = canvas.getBoundingClientRect();
-    	savedRectangles.push([startX, startY, e.clientX - r.left, e.clientY - r.top]);
+    	$scope.savedRectangles.push([startX, startY, e.clientX - r.left, e.clientY - r.top]);
+      $scope.$apply();
+      drawSavedRects();
     }
 
-    function changeSelection(e) {
-      isDrawing = false;
+    $scope.removeField = function(index) {
+      $scope.savedRectangles.splice(index, 1);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      drawSavedRects();
     }
-
     function drawSavedRects() {
-    	for(var i in savedRectangles) {
-      	var r = savedRectangles[i];
-        console.log(r);
+    	for(var i in $scope.savedRectangles) {
+      	var r = $scope.savedRectangles[i],
+            x = Math.min(r[0],r[2]),
+            y = Math.min(r[1], r[3]);
+        // No of the box, box it at the top left corner
+        rect(x, y, 11.5, -11.5);
+        ctx.fillText((parseInt(i)+1), x+2.5, y-2.5);
+        // Actual box
         rectXY(r[0], r[1], r[2], r[3]);
       }
     }
