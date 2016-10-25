@@ -17,7 +17,7 @@ app.post('/', function(req,res){
         if(err) res.send(err);
         res.json(data);
     });
-            
+
 });
 
 app.get('/:projectId', function(req, res){
@@ -30,7 +30,7 @@ app.get('/:projectId', function(req, res){
 app.get('/:projectId/file/:fileId', function(req, res){
     uploadColl.find({"_id":ObjectId(req.params.fileId),"projectId":req.params.projectId},function(err,data){
         if(err) res.send(err);
-        res.json(data);
+        res.json(data[0]);
     });
 });
 

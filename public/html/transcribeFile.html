@@ -1,0 +1,57 @@
+<style>
+.img{position:relative;z-index:1;}
+
+#imgHolder{
+    display:inline-block;
+    min-height: 10px;
+    overflow : inherit;
+    /*
+    width:320px;
+    height:480px;
+    margin: 0 auto;
+    background: black;
+    */
+    position:relative;
+    /*border:5px solid black;
+    border-radius: 10px;
+    box-shadow: 0 5px 50px #333
+    */
+}
+
+#gameCanvas{
+    position:absolute;
+    z-index:20;
+}
+</style>
+<div class="row" style="overflow:auto;">
+  <!-- Title -->
+  <div class="col-sm-12">
+    <h2>{{project.name}}</h2>
+    <h4>{{file.name}}</h4>
+  </div>
+</div>
+<br/>
+<div class="row" style="overflow:auto;">
+    <!-- THe image part -->
+    <div class="col-xs-8" id="imageHolder" style="min-height:10px;width=100%;">
+        <!--
+        <div class="row">
+            <canvas id="myCanvas" class="col-xs-12" height="1" style="overflow:visible"></canvas>
+        </div>
+        -->
+        <div class="col-sm-12" id="imgHolder">
+            <canvas id="gameCanvas" width="0" height="0"></canvas>
+            <img class="img" id="ti"  src="/api/download/{{file.identifier}}" width="100%" imageonload="onTranscImgLoad()"/>
+
+        </div>
+    </div>
+    <!-- Transcribing part -->
+    <div class="col-xs-4">
+        <!-- Schema is fixed for a project. Its one of the properties of project. Max of eight -->
+        <div ng-repeat="field in project.schema.fields">
+            <b>Type : {{field.t}}</b><br/>
+            <input class="form-control input"/>
+            <br/>
+        </div>
+    </div>
+</div>

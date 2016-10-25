@@ -38,13 +38,13 @@
                         <blockquote><small>After selecting the exemplar file, the status will change to active.</small></blockquote>
                     </div>
                 </div>
-                
+
                 <!-- Status -->
                 <br/>
                 <!-- File Upload Part -->
                 <div class="col-xs-12">
                     <h4>Files </h4>
-                    
+
                     <div class="col-xs-12">
                         <table class="col-xs-12 table table-hover table-bordered table-striped" style="overflow: auto;">
                         <thead>
@@ -62,7 +62,7 @@
                           <td>{{filed.size}}</td>
                           <td>
                             <div class="btn-group">
-                                <a class="btn btn-mini btn-info" ng-click="" ng-if="project.status=='draft'">Set as Exemplar</a>
+                                <a class="btn btn-mini btn-info" href="/project/{{project._id}}/exemplar/{{filed._id}}" ng-if="project.status=='draft'">Set as Exemplar</a>
                               <a class="btn btn-mini btn-danger" ng-click="removeImage($index)">
                                 Cancel
                               </a>
@@ -73,20 +73,20 @@
                       </table>
                     </div>
                     <div class="col-xs-12">
-  
+
     <div class="col-xs-12" >
-        
+
       <p>
         <span class="btn btn-primary" flow-btn flow-attrs="{accept:'image/*'}"><i class="icon icon-file"></i>Add Files</span>
-        <!--  additional power which the 
-        
+        <!--  additional power which the
+
         <a class="btn btn-small btn-success" ng-click="$flow.resume()">Upload</a>
         <a class="btn btn-small btn-danger" ng-click="$flow.pause()">Pause</a>
         <a class="btn btn-small btn-info" ng-click="$flow.cancel()">Cancel</a>
         <span class="label label-info">Is Uploading: {{$flow.isUploading()}}</span>
         -->
         <span class="label label-info">Size: {{$flow.getSize()}}</span>
-        
+
       </p>
     </div>
     <div class="col-sm-12">
@@ -132,7 +132,7 @@
 -->
 </div>
                 </div>
-                    
+
                 <br/><br/><br/>
                 <hr/>
                 <div class="row">
@@ -140,9 +140,9 @@
                     <div class="col-sm-6"><button class="form-control btn-warning" ng-click="goToNormalPage()">Cancel</button></div>
                     <br/><br/>
                 </div>
-            
+
         </div>
-        
-        
+
+
     </div>
 </div>

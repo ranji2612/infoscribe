@@ -13,7 +13,7 @@ var app = angular.module('mainApp', ['ngRoute','ui.bootstrap','flow'])
   // Can be used with different implementations of Flow.js
   // flowFactoryProvider.factory = fustyFlowFactory;
 }]);
-  
+
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -37,8 +37,12 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl :   'html/exemplar.html',
         controller  :   'exemplarCtrl'
     })
+    .when('/project/:projectId/transcribe/:fileId',{
+        templateUrl :   'html/transcribeFile.html',
+        controller  :   'transcribeFileCtrl'
+    })
     .otherwise({ redirectTo: '/' });
-	
+
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
 });

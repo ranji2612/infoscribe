@@ -24,23 +24,17 @@ var ACCESS_CONTROLL_ALLOW_ORIGIN = false;
 
 // Handle uploads through Flow.js
 app.post('/upload', multipartMiddleware, function(req, res) {
-    
-  console.log('========= POST /upload');
-  
-    flow.post(req, function(status, filename, original_filename, identifier) {
-        console.log('POST', status, original_filename, identifier);
-        if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
-          res.header("Access-Control-Allow-Origin", "*");
-        }
-        res.status(status).send();
-        
-    });
-  
+  flow.post(req, function(status, filename, original_filename, identifier) {
+      console.log('POST', status, original_filename, identifier);
+      if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
+        res.header("Access-Control-Allow-Origin", "*");
+      }
+      res.status(status).send();
+  });
 });
 
 
 app.options('/upload', function(req, res){
-  console.log('OPTIONS');
   if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
     res.header("Access-Control-Allow-Origin", "*");
   }
@@ -50,24 +44,21 @@ app.options('/upload', function(req, res){
 
 //Delete an uploaded file
 app.delete('/upload',function(req, res) {
-    
+
 });
 
 // Handle status checks on chunks through Flow.js
 app.get('/upload', function(req, res) {
-  console.log('======== Reached /upload get');
   flow.get(req, function(status, filename, original_filename, identifier) {
     console.log('GET', status);
     if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
       res.header("Access-Control-Allow-Origin", "*");
     }
-
     if (status == 'found') {
       status = 200;
     } else {
       status = 204;
     }
-
     res.status(status).send();
   });
 });

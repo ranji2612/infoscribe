@@ -1,0 +1,33 @@
+<style>
+  #imgHolder{
+    display:inline-block;
+    min-height: 10px;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+<div class="row" style="overflow:auto;">
+  <!-- Title -->
+  <div class="col-sm-12">
+    <h2>{{project.name}}</h2>
+    <h4>{{file.name}}</h4>
+  </div>
+</div>
+<br/>
+<div class="row" style="overflow:auto;">
+    <!-- THe image part -->
+    <div class="col-xs-8" style="width=100%;" id="canvasHolder">
+        <canvas id="demo"></canvas>
+         <!-- style="display:none;" -->
+        <!-- <img src = '/api/download/{{file.identifier}}' height="100%" width="100%"/> -->
+    </div>
+    <!-- Transcribing part -->
+    <div class="col-xs-4">
+        <!-- Schema is fixed for a project. Its one of the properties of project. Max of eight -->
+        <div ng-repeat="field in project.schema.fields">
+            <b>Type : {{field.t}}</b><br/>
+            <input class="form-control input"/>
+            <br/>
+        </div>
+    </div>
+</div>
