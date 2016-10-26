@@ -92,7 +92,7 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
     function endSelection(e) {
       isDrawing = false;
       var r = canvas.getBoundingClientRect();
-    	$scope.savedRectangles.push([startX, startY, e.clientX - r.left, e.clientY - r.top]);
+    	$scope.savedRectangles.push([startX, startY, e.clientX - r.left, e.clientY - r.top, "0"]);
       $scope.$apply();
       drawSavedRects();
     }
@@ -103,6 +103,7 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
       drawSavedRects();
     }
     function drawSavedRects() {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     	for(var i in $scope.savedRectangles) {
       	var r = $scope.savedRectangles[i],
             x = Math.min(r[0],r[2]),
@@ -126,6 +127,7 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
         rectXY(startX, startY, x, y);
       }
     }
+
     $http.get('/api/files/' + $scope.projectId + '/file/' + $scope.fileId)
     .success(function(data) {
         $scope.file = data;
@@ -134,4 +136,38 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
     .error(function(err) {
         console.log(err);
     });
+
+    // Form check and submit
+    $scope.checkForm = function() {
+      var err = [];
+      // If type is not selected
+      for(var i in $scope.savedRectangles) {
+        if ($scope.savedRectangles[i][4] === "0") {
+          err.push("Field "+(parseInt(i)+1)+" doesnt have a type");
+        }
+      }
+      // If no schema
+      if ($scope.savedRectangles.length === 0) {
+        err.push("Make atleast one field for transcribing");
+      }
+
+      return err;
+    }
+
+    $scope.saveSchema = function() {
+      var err = $scope.checkForm();
+      document.getElementById('errBox').style.display = "none"
+      document.getElementById('errBox').innerHTML = "";
+      if (err.length !== 0) {
+        // Display the error
+        console.log(err);
+        for (var i in err) {
+          document.getElementById('errBox').innerHTML += err[i] + '<br/>';
+        }
+        document.getElementById('errBox').style.display = "";
+      } else {
+        //Save the schema and redirect to the project page
+
+      }
+    }
 });
