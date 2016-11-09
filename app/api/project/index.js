@@ -39,16 +39,16 @@ app.get('/:projectId', function(req,res) {
 app.post('/', function(req,res) {
     console.log(req.user);
     //Validate req.body - Pending
-    
+
     if(req.params.projectId != req.body.projectId) {
         res.json({"status":"error","error":"Project Id didnt match"});
     }
     //Check if already exists
     project.find({name:req.body.name},function(err,data){
         //Find errored
-        if (err) 
+        if (err)
             res.json({"status":"error","error":err, "message":"Project Name already exists"});
-        
+
         //If Project name already exists
         if (data.length>0)
             res.json({"status":"error","message":"Project Name already exists"});
@@ -59,7 +59,7 @@ app.post('/', function(req,res) {
             newProject["status"] = "draft";
             //newProject["files"] = [];
             console.log(newProject);
-            
+
             //If passes the conditions then create a new project
             project.create(newProject,function(err,newData){
                 if (err)
@@ -72,10 +72,11 @@ app.post('/', function(req,res) {
 
 
 app.put('/:projectId', function(req,res) {
-    console.log('==================');
-    console.log(req.params.projectId);
-    console.log(req.body);
-    project.update({"_id": ObjectId(req.params.projectId)},req.body, function(err, data){
+    var updatedData = req.body;
+    if ("schema" in updatedData) {
+      updatedData['status'] = 'ready';
+    }
+    project.update({"_id": ObjectId(req.params.projectId)}, updatedData, function(err, data){
         if(data.length===0)
             res.json({"status":"error","error":err,"message":err.message});
         console.log(data);
@@ -88,7 +89,7 @@ app.delete('/:projectId', function(req,res) {
     project.remove({"_id" : ObjectId(req.params.projectId)}, function(err, data) {
         if (err) {
             console.log(err);
-            res.send(err);   
+            res.send(err);
         }
         res.json(data);
     });

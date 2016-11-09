@@ -23,7 +23,6 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
             data.transcDeadline = new Date(data.transcDeadline);
             data.embargoDate = new Date(data.embargoDate);
             //This has all the details of the project and also the template of the transcribing
-            data['schema'] = {"count":1,"fields": [{"i":1,"x":10,"y":10,"w":350,"h":50,"t":"String"},{"i":2,"x":100,"y":100,"w":350,"h":50,"t":"Date"}]};
             $scope.project = data;
         }
     })

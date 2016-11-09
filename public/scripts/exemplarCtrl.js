@@ -1,4 +1,4 @@
-app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
+app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
     console.log('exemplar under control..');
     $scope.projectId = $routeParams.projectId;
     $scope.fileId = $routeParams.fileId;
@@ -154,20 +154,41 @@ app.controller('exemplarCtrl', function($scope,$http, $routeParams) {
       return err;
     }
 
+    $scope.prepareData = function() {
+      var data = [];
+      for(var field in $scope.savedRectangles) {
+        data.push({
+          'pos': $scope.savedRectangles[field].slice(0,-1).map(function(elem){
+            return elem * 500 / document.getElementById('exemplarImage').width;
+          }),
+          'type': $scope.savedRectangles[field][4]
+        });
+      }
+      return {'schema': data};
+    }
+
     $scope.saveSchema = function() {
       var err = $scope.checkForm();
-      document.getElementById('errBox').style.display = "none"
-      document.getElementById('errBox').innerHTML = "";
+      var errBox = document.getElementById('errBox');
+      errBox.style.display = "none"
+      errBox.innerHTML = "";
       if (err.length !== 0) {
         // Display the error
-        console.log(err);
         for (var i in err) {
-          document.getElementById('errBox').innerHTML += err[i] + '<br/>';
+          errBox.innerHTML += err[i] + '<br/>';
         }
-        document.getElementById('errBox').style.display = "";
+        errBox.style.display = "";
       } else {
         //Save the schema and redirect to the project page
-
+        var payload = $scope.prepareData();
+        $http.put('/api/project/'+$scope.projectId, payload)
+        .success(function(data){
+            console.log(data);
+            $location.path('/project/'+$scope.projectId);
+        })
+        .error(function(err){
+            console.log(err);
+        });
       }
     }
 });
