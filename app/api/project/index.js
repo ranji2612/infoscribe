@@ -85,10 +85,8 @@ app.put('/:projectId', function(req,res) {
 });
 
 app.delete('/:projectId', function(req,res) {
-    console.log('reached delete ');
     project.remove({"_id" : ObjectId(req.params.projectId)}, function(err, data) {
         if (err) {
-            console.log(err);
             res.send(err);
         }
         res.json(data);

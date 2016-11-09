@@ -39,17 +39,17 @@
             <canvas id="myCanvas" class="col-xs-12" height="1" style="overflow:visible"></canvas>
         </div>
         -->
-        <div class="col-sm-12" id="imgHolder">
-            <canvas id="gameCanvas" width="0" height="0"></canvas>
-            <img class="img" id="ti"  src="/api/download/{{file.identifier}}" width="100%" imageonload="onTranscImgLoad()"/>
+        <div class="col-sm-12" style="width=100%;" id="canvasHolder">
+            <canvas id="transcribeImage"></canvas>
+            <!-- <img class="img" id="ti"  src="/api/download/{{file.identifier}}" width="100%" imageonload="onTranscImgLoad()"/> -->
 
         </div>
     </div>
     <!-- Transcribing part -->
     <div class="col-xs-4">
         <!-- Schema is fixed for a project. Its one of the properties of project. Max of eight -->
-        <div ng-repeat="field in project.schema.fields">
-            <b>Type : {{field.t}}</b><br/>
+        <div ng-repeat="field in project.schema">
+            <b>Type : {{field.type}}</b><br/>
             <input class="form-control input"/>
             <br/>
         </div>

@@ -9,7 +9,7 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
 
 
     // Exemplar Logic
-    var canvas = document.getElementById('demo'),
+    var canvas = document.getElementById('exemplarImage'),
         ctx = canvas.getContext('2d'),
         line = new Line(ctx),
         img = new Image;
@@ -75,7 +75,7 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
       ctx.canvas.width  = document.getElementById('canvasHolder').clientWidth;
       ctx.canvas.height = img.height * document.getElementById('canvasHolder').clientWidth / img.width;
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(img, 0, 0, demo.width, demo.height);
+      ctx.drawImage(img, 0, 0, exemplarImage.width, exemplarImage.height);
       canvas.onmousemove = updateLine;
       canvas.onmousedown = startSelection;
       canvas.onmouseup = endSelection;
@@ -181,6 +181,7 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
       } else {
         //Save the schema and redirect to the project page
         var payload = $scope.prepareData();
+        console.log(payload);
         $http.put('/api/project/'+$scope.projectId, payload)
         .success(function(data){
             console.log(data);
