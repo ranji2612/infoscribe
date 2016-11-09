@@ -57,14 +57,12 @@ app.post('/', function(req,res) {
             newProject["nod"] = 0;
             newProject["notd"] = 0;
             newProject["status"] = "draft";
-            //newProject["files"] = [];
-            console.log(newProject);
-
             //If passes the conditions then create a new project
             project.create(newProject,function(err,newData){
                 if (err)
                     res.json({"status":"error","error":err,"message":err.message});
-                res.json({"status":"success","data":newData});
+                else
+                    res.json({"status":"success","data":newData});
             });
         }
     });
@@ -77,10 +75,11 @@ app.put('/:projectId', function(req,res) {
       updatedData['status'] = 'ready';
     }
     project.update({"_id": ObjectId(req.params.projectId)}, updatedData, function(err, data){
-        if(data.length===0)
+        if(data.length===0) {
             res.json({"status":"error","error":err,"message":err.message});
-        console.log(data);
-        res.json({"status":"success","data":data});
+        } else {
+          res.json({"status":"success","data":data});
+        }
     });
 });
 

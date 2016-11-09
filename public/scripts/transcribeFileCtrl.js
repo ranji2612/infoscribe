@@ -9,18 +9,15 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
         ctx = canvas.getContext('2d'),
         line = new Line(ctx),
         img = new Image;
-    ctx.strokeStyle = '#111';
     ctx.font="20px Tahoma";
     ctx.fillStyle = 'white';
     img.onload = start;
     function Line(ctx) {
       var me = this;
-
       this.x1 = 0;
       this.x2 = 0;
       this.y1 = 0;
       this.y2 = 0;
-
       this.draw = function() {
         ctx.beginPath();
         ctx.moveTo(me.x1, me.y1);
@@ -101,7 +98,6 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
 
     //Once img is loaded draw the boundaries over transcribing regions
     $scope.onTranscImgLoad = function() {
-      console.log('schema' in $scope.project, !$scope.isImageLoaded);
       if('schema' in $scope.project && !$scope.isImageLoaded) {
         $scope.isImageLoaded = true;
         console.log('Yayyyy');
@@ -114,11 +110,41 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
               x = Math.min(r[0],r[2]),
               y = Math.min(r[1], r[3]);
           // No of the box, box it at the top left corner
+          ctx.strokeStyle = '#FF0000';
           rect(x, y, 11.5, -11.5);
           ctx.fillText((parseInt(i)+1), x+2.5, y-2.5);
           // Actual box
+          ctx.strokeStyle = '#FF0000';
           rectXY(r[0], r[1], r[2], r[3]);
         }
+      }
+    };
+
+    $scope.checkForm = function() {
+
+    };
+
+    $scope.saveTranscription = function() {
+      var err = $scope.checkForm();
+      var errBox = document.getElementById('errBox');
+      errBox.style.display = "none"
+      errBox.innerHTML = "";
+      if (err.length !== 0) {
+        // Display the error
+        for (var i in err) {
+          errBox.innerHTML += err[i] + '<br/>';
+        }
+        errBox.style.display = "";
+      } else {
+        //Save the schema and redirect to the project page
+        $http.post('/api/transcribe/'+$scope.projectId, payload)
+        .success(function(data){
+            console.log(data);
+            $location.path('/project/'+$scope.projectId);
+        })
+        .error(function(err){
+            console.log(err);
+        });
       }
     };
 });

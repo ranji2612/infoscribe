@@ -25,3 +25,16 @@ Tasks
 
     * Secure the API
     * Project Visibility & Creation restriction
+
+
+Note :
+-------
+  - Red box
+  - Movable fields
+  - Zoom buttons
+  - Desc/Name for the exemplar field
+
+
+ - Transcriptions
+    - Export to CSV
+    -

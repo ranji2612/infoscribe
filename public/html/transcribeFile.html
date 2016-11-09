@@ -25,9 +25,27 @@
 </style>
 <div class="row" style="overflow:auto;">
   <!-- Title -->
-  <div class="col-sm-12">
+  <div class="col-sm-9">
     <h2>{{project.name}}</h2>
     <h4>{{file.name}}</h4>
+  </div>
+  <div class="col-sm-3" style="display:inline-flex;">
+    <button
+      class="btn btn-primary"
+      ng-click="saveTranscription()"
+      style="width:95%;padding:5px;margin:5px;">
+      Save
+    </button>
+    <a href="/"><button
+      class="btn btn-md btn-secondary"
+      style="width:95%;padding:5px;margin:5px;">
+      Cancel
+    </button></a>
+  </div>
+</div>
+<br/>
+<div class="row" style="overflow:auto;">
+  <div class="col-sm-12 errorBox" id="errBox" style="display:none;">
   </div>
 </div>
 <br/>
