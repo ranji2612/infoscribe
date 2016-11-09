@@ -36,33 +36,38 @@ app.get('/user/:userId/project/:projectId/file/:fileId', function(req, res){
 });
 
 app.post('/', function(req, res){
-    var searchCond = {
-      "projectId":req.body.projectId,
-      "userId":req.body.userId,
-      "fileId": req.body.fileId
-    };
-    var transData = req.body;
-    transcribe.find(searchCond,function(err,data){
-        if(err) res.send(err);
-        if (data.length === 0) {
-          // Write new - If its a new Transcription
-          transcribe.create(transData, function(err,newData){
-            if (err)
-              res.json({"status":"error","error":err,"message":err.message});
-            else
-              res.json({"status":"Inserted New success","data":newData});
-          });
-        } else {
-          // overwrite - If already transcibed
-          transcribe.update({"_id": data[0]["_id"]}, transData, function(err,newData){
-            if (err) {
-              res.json({"status":"error","error":err,"message":err.message});
-            } else {
-              res.json({"status":"success","data":newData});
-            }
-          });
-        }
-    });
+    if (!req.body || !req.body.userId || !req.body.projectId || !req.body.fileId) {
+      console.log(req);
+      res.json({"status":"error","error":"the requested resourse doesnot exist"});
+    } else {
+      var searchCond = {
+        "projectId":req.body.projectId,
+        "userId":req.body.userId,
+        "fileId": req.body.fileId
+      };
+      var transData = req.body;
+      transcribe.find(searchCond,function(err,data){
+          if(err) res.send(err);
+          if (data.length === 0) {
+            // Write new - If its a new Transcription
+            transcribe.create(transData, function(err,newData){
+              if (err)
+                res.json({"status":"error","error":err,"message":err.message});
+              else
+                res.json({"status":"Inserted New success","data":newData});
+            });
+          } else {
+            // overwrite - If already transcibed
+            transcribe.update({"_id": data[0]["_id"]}, transData, function(err,newData){
+              if (err) {
+                res.json({"status":"error","error":err,"message":err.message});
+              } else {
+                res.json({"status":"success","data":newData});
+              }
+            });
+          }
+      });
+    }
 });
 
 
