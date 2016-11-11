@@ -68,7 +68,7 @@
         <!-- Schema is fixed for a project. Its one of the properties of project. Max of eight -->
         <div ng-repeat="field in project.schema">
             <b>Type : {{field.type}}</b><br/>
-            <input class="form-control input"/>
+            <input class="form-control input" ng-model="transResult[$index]"/>
             <br/>
         </div>
     </div>

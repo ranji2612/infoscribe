@@ -161,7 +161,8 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
           'pos': $scope.savedRectangles[field].slice(0,-1).map(function(elem){
             return elem * 500 / document.getElementById('exemplarImage').width;
           }),
-          'type': $scope.savedRectangles[field][4]
+          'type': $scope.savedRectangles[field][4],
+          'no': field
         });
       }
       return {'schema': data};

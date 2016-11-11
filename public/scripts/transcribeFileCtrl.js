@@ -1,8 +1,9 @@
-app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
+app.controller('transcribeFileCtrl', function($scope,$http, $location, $routeParams) {
     $scope.projectId = $routeParams.projectId;
     $scope.fileId = $routeParams.fileId;
     $scope.file = {};
     $scope.project = {};
+    $scope.transResult = {};
     $scope.isImageLoaded = false;
     // Exemplar Logic
     var canvas = document.getElementById('transcribeImage'),
@@ -86,7 +87,10 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
             data.embargoDate = new Date(data.embargoDate);
             //This has all the details of the project and also the template of the transcribing
             $scope.project = data;
-            // $scope.onTranscImgLoad();
+            $scope.project.schema.map(function(elem){
+              $scope.transResult[elem['no']] = '';
+            });
+            console.log($scope.transResult);
         }
     })
     .error(function(err) {
@@ -100,7 +104,6 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
     $scope.onTranscImgLoad = function() {
       if('schema' in $scope.project && !$scope.isImageLoaded) {
         $scope.isImageLoaded = true;
-        console.log('Yayyyy');
         for(var i=0; i< $scope.project.schema.length;i++) {
           var pos = $scope.project.schema[i]['pos'];
           pos = pos.map(function(elem){
@@ -120,12 +123,21 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
       }
     };
 
-    $scope.checkForm = function() {
-
+    $scope.checkForm = function(results) {
+      // TODO: Check if the types and input matches
+      var err = Object.keys(results).map(function(key){
+        if (results[key]==='') {
+          return "Field "+(parseInt(key)+1)+" is empty"
+        }
+      });
+      return err.filter(function(item){
+          return typeof item ==='string';
+      });
     };
 
     $scope.saveTranscription = function() {
-      var err = $scope.checkForm();
+      console.log($scope.transResult);
+      var err = $scope.checkForm($scope.transResult);
       var errBox = document.getElementById('errBox');
       errBox.style.display = "none"
       errBox.innerHTML = "";
@@ -136,8 +148,12 @@ app.controller('transcribeFileCtrl', function($scope,$http, $routeParams) {
         }
         errBox.style.display = "";
       } else {
-        //Save the schema and redirect to the project page
-        $http.post('/api/transcribe/'+$scope.projectId, payload)
+        var payload = $scope.transResult;
+        // Elements to hash
+        payload['fileId'] = $scope.fileId;
+        payload['projectId'] = $scope.projectId;
+        // Save the schema and redirect to the project page
+        $http.post('/api/transcribe/', payload)
         .success(function(data){
             console.log(data);
             $location.path('/project/'+$scope.projectId);

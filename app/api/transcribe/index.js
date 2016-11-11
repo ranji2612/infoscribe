@@ -20,9 +20,9 @@ app.get('/:transId', function(req, res){
 
 app.get('/user/:userId/project/:projectId/file/:fileId', function(req, res){
     var searchCond = {
-      "projectId":req.params.projectId,
-      "userId":req.params.userId,
-      "transId": req.params.transId
+      "projectId": ObjectId(req.params.projectId),
+      "userId": req.user['_id'],
+      "transId": ObjectId(req.params.transId)
     };
     console.log('asdasd');
     transcribe.find(searchCond, function(err,data){
@@ -36,16 +36,22 @@ app.get('/user/:userId/project/:projectId/file/:fileId', function(req, res){
 });
 
 app.post('/', function(req, res){
-    if (!req.body || !req.body.userId || !req.body.projectId || !req.body.fileId) {
+    if (!req.body || !req.user || !req.user['_id'] || !req.body.projectId || !req.body.fileId) {
       console.log(req);
       res.json({"status":"error","error":"the requested resourse doesnot exist"});
     } else {
+      console.log(typeof req.user['_id'], req.user['_id']);
       var searchCond = {
-        "projectId":req.body.projectId,
-        "userId":req.body.userId,
-        "fileId": req.body.fileId
+        "projectId": ObjectId(req.body.projectId),
+        "userId": req.user['_id'],
+        "fileId": ObjectId(req.body.fileId)
       };
+      // Maintian the transcription data
       var transData = req.body;
+      transData['userId'] = req.user['_id'];
+      transData['projectId'] = ObjectId(req.body.projectId);
+      transData['fileId'] = ObjectId(req.body.fileId);
+      // Search for existing
       transcribe.find(searchCond,function(err,data){
           if(err) res.send(err);
           if (data.length === 0) {
@@ -54,7 +60,7 @@ app.post('/', function(req, res){
               if (err)
                 res.json({"status":"error","error":err,"message":err.message});
               else
-                res.json({"status":"Inserted New success","data":newData});
+                res.json({"status":"success","data":newData});
             });
           } else {
             // overwrite - If already transcibed

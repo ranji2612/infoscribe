@@ -29,12 +29,12 @@ Tasks
 
 Note :
 -------
-  - Red box
-  - Movable fields
-  - Zoom buttons
-  - Desc/Name for the exemplar field
+  - Red box - done
+  - Movable fields - Next step
+  - Zoom buttons - Next Step
+  - Desc/Name for the exemplar field - Future
 
 
  - Transcriptions
-    - Export to CSV
+    - Export to CSV - Ongoing
     -
