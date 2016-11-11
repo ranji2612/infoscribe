@@ -5,7 +5,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
     $scope.project = {};
     $scope.transResult = {};
     $scope.isImageLoaded = false;
-    // Exemplar Logic
+    // Transctiption Logic
     var canvas = document.getElementById('transcribeImage'),
         ctx = canvas.getContext('2d'),
         line = new Line(ctx),
@@ -65,7 +65,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
       ctx.drawImage(img, 0, 0, transcribeImage.width, transcribeImage.height);
       $scope.onTranscImgLoad();
     }
-
+    // Get File Details
     $http.get('/api/files/' + $scope.projectId + '/file/' + $scope.fileId)
     .success(function(data) {
         $scope.file = data;
@@ -75,7 +75,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
     .error(function(err) {
         console.log(err);
     });
-
+    // Get Project Details
     $http.get('/api/project/'+$scope.projectId)
     .success(function(data) {
         if(data.length == 0) {
@@ -96,8 +96,27 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
     .error(function(err) {
         console.log(err);
     });
-
-    console.log('transcribe file under control..', $scope.projectId, $scope.fileId);
+    // Get Transription details for this file by the user
+    $http.get('/api/transcribe/project/'+$scope.projectId+'/file/'+$scope.fileId)
+    .success(function(data) {
+        if(data.length == 0) {
+            console.log('Invalid projcet Id');
+            res.redirectTo('/');
+        } else {
+            data = data[0];
+            data.transcDeadline = new Date(data.transcDeadline);
+            data.embargoDate = new Date(data.embargoDate);
+            //This has all the details of the project and also the template of the transcribing
+            $scope.project = data;
+            $scope.project.schema.map(function(elem){
+              $scope.transResult[elem['no']] = '';
+            });
+            console.log($scope.transResult);
+        }
+    })
+    .error(function(err) {
+        console.log(err);
+    });
 
 
     //Once img is loaded draw the boundaries over transcribing regions

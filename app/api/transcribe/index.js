@@ -1,5 +1,6 @@
 //Current rate collection
 var transcribe  = require('./transcribe.model');
+var project  = require('./../project/project.model');
 
 var mongoose 	= require('mongoose');
 var ObjectId 	= mongoose.Types.ObjectId;
@@ -12,19 +13,21 @@ var multer  = require('multer')
 var upload = multer({dest:'tmp/'});
 
 app.get('/:transId', function(req, res){
-    transcribe.find({"transId":req.params.transId},function(err,data){
-        if(err) res.send(err);
-        res.json(data);
-    });
+    // transcribe.find({"transId":req.params.transId},function(err,data){
+    //     if(err) res.send(err);
+    //     res.json(data);
+    // });
+
+    res.json({});
 });
 
-app.get('/user/:userId/project/:projectId/file/:fileId', function(req, res){
+app.get('/project/:projectId/file/:fileId', function(req, res){
     var searchCond = {
       "projectId": ObjectId(req.params.projectId),
       "userId": req.user['_id'],
       "transId": ObjectId(req.params.transId)
     };
-    console.log('asdasd');
+
     transcribe.find(searchCond, function(err,data){
         if(err) res.send(err);
         if(data.length===0) {
@@ -37,10 +40,8 @@ app.get('/user/:userId/project/:projectId/file/:fileId', function(req, res){
 
 app.post('/', function(req, res){
     if (!req.body || !req.user || !req.user['_id'] || !req.body.projectId || !req.body.fileId) {
-      console.log(req);
       res.json({"status":"error","error":"the requested resourse doesnot exist"});
     } else {
-      console.log(typeof req.user['_id'], req.user['_id']);
       var searchCond = {
         "projectId": ObjectId(req.body.projectId),
         "userId": req.user['_id'],
@@ -59,8 +60,20 @@ app.post('/', function(req, res){
             transcribe.create(transData, function(err,newData){
               if (err)
                 res.json({"status":"error","error":err,"message":err.message});
-              else
-                res.json({"status":"success","data":newData});
+              else {
+                project.findOneAndUpdate(
+                  {'_id' : transData.projectId},
+                  { $inc: { 'notd' : 1 }}
+                , function(err, updateRes) {
+                  console.log("==>",updateRes);
+                  if(err) {
+                    console.log(err);
+                    res.json({"status":"error","error":err,"message":"did not update projects"});
+                  } else {
+                    res.json({"status":"success","data":newData});
+                  }
+                });
+              }
             });
           } else {
             // overwrite - If already transcibed

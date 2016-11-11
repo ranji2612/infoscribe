@@ -18,18 +18,15 @@ app.get('/all', function(req,res) {
     project.find({}, function(err, data){
         if(data.length===0)
             console.log('error : ',err);
-        console.log(data);
         res.json(data);
     });
 });
 
 
 app.get('/:projectId', function(req,res) {
-    console.log(req.user);
     project.find({"_id" : ObjectId(req.params.projectId)}, function(err, data){
         if(data.length===0)
             console.log('error : ',err);
-        console.log(data);
         res.json(data);
     });
 
@@ -37,7 +34,6 @@ app.get('/:projectId', function(req,res) {
 
 //Creating a new project
 app.post('/', function(req,res) {
-    console.log(req.user);
     //Validate req.body - Pending
 
     if(req.params.projectId != req.body.projectId) {
