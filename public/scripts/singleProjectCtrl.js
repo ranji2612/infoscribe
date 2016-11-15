@@ -2,6 +2,8 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams) {
     console.log('Single Project under control..');
     $scope.projectId = $routeParams.projectId;
 
+    $scope.csv_link = '/api/project/' + $scope.projectId + '/download';
+
     //Getting the image files associated with the project
     $scope.files = [];
 

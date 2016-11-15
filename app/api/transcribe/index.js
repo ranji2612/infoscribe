@@ -12,15 +12,6 @@ var app = express.Router();
 var multer  = require('multer')
 var upload = multer({dest:'tmp/'});
 
-app.get('/:transId', function(req, res){
-    // transcribe.find({"transId":req.params.transId},function(err,data){
-    //     if(err) res.send(err);
-    //     res.json(data);
-    // });
-
-    res.json({});
-});
-
 app.get('/project/:projectId/file/:fileId', function(req, res){
     var searchCond = {
       "projectId": ObjectId(req.params.projectId),

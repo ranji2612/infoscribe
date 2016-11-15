@@ -1,8 +1,10 @@
 //Current rate collection
 var project  = require('./project.model');
+var transcribe = require('./../transcribe/transcribe.model');
 
 var mongoose 	= require('mongoose');
 var ObjectId 	= mongoose.Types.ObjectId;
+var json2csv = require('json2csv');
 
 var express = require('express');
 var app = express.Router();
@@ -30,6 +32,18 @@ app.get('/:projectId', function(req,res) {
         res.json(data);
     });
 
+});
+
+app.get('/:projectId/download', function(req,res) {
+    // Download data as csv
+    var reqFields = {"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1};
+    transcribe.find({"projectId": ObjectId(req.params.projectId)}, reqFields, function(err, data){
+      var fields = ['0', '1', '2', '3','4','5','6','7'];
+      var csv = json2csv({ data: JSON.parse(JSON.stringify(data)) });
+      res.attachment('download.csv');
+      res.status(200).send(csv);
+      res.end();
+    });
 });
 
 //Creating a new project
