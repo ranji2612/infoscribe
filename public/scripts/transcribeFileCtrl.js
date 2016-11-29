@@ -5,6 +5,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
     $scope.project = {};
     $scope.transResult = {};
     $scope.isImageLoaded = false;
+    $scope.rectanglesVisibility = true;
     // Transctiption Logic
     var canvas = document.getElementById('transcribeImage'),
         ctx = canvas.getContext('2d'),
@@ -58,9 +59,9 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
       rect(x1,y1, w, h);
     }
     /* Canvas mouse interaction functions */
-    function start() {
-      ctx.canvas.width  = document.getElementById('canvasHolder').clientWidth;
-      ctx.canvas.height = img.height * document.getElementById('canvasHolder').clientWidth / img.width;
+    function start(event, zoomRatio=0) {
+      ctx.canvas.width  = (1+zoomRatio)*document.getElementById('canvasHolder').clientWidth;
+      ctx.canvas.height = (1+zoomRatio)*img.height * document.getElementById('canvasHolder').clientWidth / img.width;
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(img, 0, 0, transcribeImage.width, transcribeImage.height);
       $scope.onTranscImgLoad();
@@ -121,8 +122,12 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
 
     //Once img is loaded draw the boundaries over transcribing regions
     $scope.onTranscImgLoad = function() {
-      if('schema' in $scope.project && !$scope.isImageLoaded) {
+      if (!$scope.rectanglesVisibility)
+        return;
+      console.log($scope.rectanglesVisibility);
+      if(('schema' in $scope.project)) {
         $scope.isImageLoaded = true;
+        console.log('----Yayyy');
         for(var i=0; i< $scope.project.schema.length;i++) {
           var pos = $scope.project.schema[i]['pos'];
           pos = pos.map(function(elem){
@@ -181,5 +186,25 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
             console.log(err);
         });
       }
+    };
+
+    // Canvas View Controls
+    $scope.zoom =0;
+    $scope.zoomCanvas = function(n) {
+      console.log(n);
+      if (n===0) {
+        $scope.zoom = 0;
+      } else if (n===1) {
+        $scope.zoom += 0.1;
+      } else if (n===-1) {
+        $scope.zoom -= 0.1;
+      }
+      start({},$scope.zoom);
+    };
+
+    $scope.toggleRectangles = function() {
+      console.log($scope.rectanglesVisibility);
+      $scope.rectanglesVisibility = !$scope.rectanglesVisibility;
+      start({}, $scope.zoom);
     };
 });

@@ -38,11 +38,16 @@ app.get('/:projectId/download', function(req,res) {
     // Download data as csv
     var reqFields = {"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1};
     transcribe.find({"projectId": ObjectId(req.params.projectId)}, reqFields, function(err, data){
-      var fields = ['0', '1', '2', '3','4','5','6','7'];
-      var csv = json2csv({ data: JSON.parse(JSON.stringify(data)) });
-      res.attachment('download.csv');
-      res.status(200).send(csv);
-      res.end();
+      if(data.length !== 0) {
+        var fields = ['0', '1', '2', '3','4','5','6','7'];
+        var csv = json2csv({ data: JSON.parse(JSON.stringify(data)) });
+        res.attachment('download.csv');
+        res.status(200).send(csv);
+        res.end();
+      } else {
+        res.status(500);
+        res.end();
+      }
     });
 });
 

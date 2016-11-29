@@ -1,28 +1,4 @@
-<style>
-.img{position:relative;z-index:1;}
 
-#imgHolder{
-    display:inline-block;
-    min-height: 10px;
-    overflow : inherit;
-    /*
-    width:320px;
-    height:480px;
-    margin: 0 auto;
-    background: black;
-    */
-    position:relative;
-    /*border:5px solid black;
-    border-radius: 10px;
-    box-shadow: 0 5px 50px #333
-    */
-}
-
-#gameCanvas{
-    position:absolute;
-    z-index:20;
-}
-</style>
 <div class="row" style="overflow:auto;">
   <!-- Title -->
   <div class="col-sm-9">
@@ -57,7 +33,14 @@
             <canvas id="myCanvas" class="col-xs-12" height="1" style="overflow:visible"></canvas>
         </div>
         -->
-        <div class="col-sm-12" style="width=100%;" id="canvasHolder">
+        <!-- Buttons -->
+        <div class="col-xs-12">
+          <button ng-click="zoomCanvas(1)">Zoom In</button>
+          <button ng-click="zoomCanvas(-1)">Zoom Out</button>
+          <button ng-click="zoomCanvas(0)">Zoom to Fit</button>
+          <button ng-click="toggleRectangles()">Show/Hide Rectangles</button>
+        </div>
+        <div class="col-sm-12 imgDisplay" style="width=100%;" id="canvasHolder">
             <canvas id="transcribeImage"></canvas>
             <!-- <img class="img" id="ti"  src="/api/download/{{file.identifier}}" width="100%" imageonload="onTranscImgLoad()"/> -->
 

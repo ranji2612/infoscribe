@@ -1,0 +1,92 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+.imgDisplay {
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+.btn-primary {
+    background-color: #252525;
+}
+.panel {
+    border: 2px #EEE solid;
+    background-color: #FFFFFF;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 40px;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+    background-color: #F1F3F1;
+}
+h5 {
+    font-family: 'Open Sans', sans-serif;
+}
+strong {
+    font-family: 'Open Sans', sans-serif;
+}
+.box {
+    border: 2px #BBB solid
+}
+.footer {
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+
+    height: 40px;
+    background-color: #252525;
+}
+.closeFields {
+    display: block;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+    right: 2px;
+}
+.schemaFields {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+.errorBox {
+    background-color: #f1a8a8;
+    color: #fffefe;
+    padding: 10px;
+    margin: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.sectionTitle {
+    font-weight: 100;
+    text-align: left;
+    border-bottom: 2px solid #0A0;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+.details {
+    font-size: 9px;
+    background: #222;
+    color: #EEE;
+    text-decoration: none;
+    max-height: 300px;
+    overflow-y: hidden;
+}
+.details a,
+h6 {
+    text-decoration: none;
+    color: #A4C5A1;
+}
+.prof {
+    font-size: bold;
+}
+.glyphicon.glyphicon-collapse-down {
+    font-size: 25px;
+}
+.glyphicon.glyphicon-collapse-up {
+    font-size: 25px;
+}
