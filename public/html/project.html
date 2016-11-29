@@ -1,14 +1,14 @@
 <!-- Project Details -->
 <div class="row panel">
-    <div class="col-sm-12">
+    <div class="col-sm-8">
       <strong><h2>{{project.name}} &nbsp;&nbsp;</h2></strong>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-4" style="text-align:right">
       <strong><h2>
-        <a target="_self" ng-href="{{csv_link}}">
-          <button>download csv</button>
+        <a target="_self" ng-href="{{csv_link}}" class="btn btn-default btn-sm">
+          Downoad csv
         </a>
-        <a href="/project/{{project._id}}/edit" class="btn btn-primary">Edit</a>
+        <a href="/project/{{project._id}}/edit" class="btn btn-primary btn-sm">Edit</a>
       </h2></strong>
     </div>
 </div>

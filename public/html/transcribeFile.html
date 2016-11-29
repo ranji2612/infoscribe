@@ -1,58 +1,58 @@
 
-<div class="row" style="overflow:auto;">
-  <!-- Title -->
-  <div class="col-sm-9">
-    <h2>{{project.name}}</h2>
+<div class="row panel">
+  <div class="col-sm-8">
+    <strong><h2>{{project.name}}</h2></strong>
     <h4>{{file.name}}</h4>
   </div>
-  <div class="col-sm-3" style="display:inline-flex;">
-    <button
-      class="btn btn-primary"
-      ng-click="saveTranscription()"
-      style="width:95%;padding:5px;margin:5px;">
-      Save
-    </button>
-    <a href="/"><button
-      class="btn btn-md btn-secondary"
-      style="width:95%;padding:5px;margin:5px;">
-      Cancel
-    </button></a>
+  <div class="col-sm-4" style="text-align:right">
+    <strong><h2>
+      <button
+        class="btn btn-primary btn-sm"
+        ng-click="saveTranscription()">
+        Save
+      </button>
+      <a href="/" class="btn  btn-sm btn-secondary">Cancel</a>
+    </h2></strong>
   </div>
 </div>
-<br/>
 <div class="row" style="overflow:auto;">
   <div class="col-sm-12 errorBox" id="errBox" style="display:none;">
   </div>
 </div>
-<br/>
-<div class="row" style="overflow:auto;">
+<div class="row">
     <!-- THe image part -->
     <div class="col-xs-8" id="imageHolder" style="min-height:10px;width=100%;">
-        <!--
-        <div class="row">
-            <canvas id="myCanvas" class="col-xs-12" height="1" style="overflow:visible"></canvas>
-        </div>
-        -->
         <!-- Buttons -->
         <div class="col-xs-12">
-          <button ng-click="zoomCanvas(1)">Zoom In</button>
-          <button ng-click="zoomCanvas(-1)">Zoom Out</button>
-          <button ng-click="zoomCanvas(0)">Zoom to Fit</button>
-          <button ng-click="toggleRectangles()">Show/Hide Rectangles</button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="zoomCanvas(1)">
+            <span class="glyphicon glyphicon-zoom-in"></span> Zoom-in
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="zoomCanvas(-1)">
+            <span class="glyphicon glyphicon-zoom-out"></span> Zoom-Out
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="zoomCanvas(0)">
+            <span class="glyphicon glyphicon-resize-full"></span>Zoom to Fit
+          </button>
+          <button class="btn btn-secondary" ng-click="toggleRectangles()">
+            <span class="glyphicon glyphicon-tasks"></span>
+            {{rectanglesVisibility? 'Hide' : 'Show'}}&nbsp;Rectangle
+          </button>
         </div>
         <div class="col-sm-12 imgDisplay" style="width=100%;" id="canvasHolder">
-            <canvas id="transcribeImage"></canvas>
-            <!-- <img class="img" id="ti"  src="/api/download/{{file.identifier}}" width="100%" imageonload="onTranscImgLoad()"/> -->
-
+          <br/>
+          <canvas id="transcribeImage"></canvas>
         </div>
     </div>
     <!-- Transcribing part -->
     <div class="col-xs-4">
         <!-- Schema is fixed for a project. Its one of the properties of project. Max of eight -->
-        <div ng-repeat="field in project.schema">
-            <b>Type : {{field.type}}</b><br/>
-            <input class="form-control input" ng-model="transResult[$index]"/>
-            <br/>
+        <div class="panel transField row" ng-repeat="field in project.schema">
+              <div class="col-sm-3">No. {{$index+1}}</div>
+              <div class="col-sm-9 fieldType">{{field.type}}</div>
+              <div class="col-sm-12 fieldp2">
+                <input class="form-control input transFieldText" ng-model="transResult[$index]"/>
+              </div>
+
         </div>
     </div>
 </div>

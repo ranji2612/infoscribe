@@ -9,6 +9,10 @@ html {
 .btn-primary {
     background-color: #252525;
 }
+.btn-secondary {
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
 .panel {
     border: 2px #EEE solid;
     background-color: #FFFFFF;
@@ -89,4 +93,21 @@ h6 {
 }
 .glyphicon.glyphicon-collapse-up {
     font-size: 25px;
+}
+
+/* Transcribe parts */
+.transField {
+  text-align: left;
+  background-color: #fff;
+}
+.fieldType {
+  text-align: center;
+  background-color: #f7d7b1;
+  padding: 5px;
+}
+.fieldp2 {
+  border-top: 1px solid #ddd;
+}
+.transFieldText {
+  margin: 5px;
 }
