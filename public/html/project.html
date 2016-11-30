@@ -12,73 +12,45 @@
       </h2></strong>
     </div>
 </div>
-<div class="row panel">
+<div class="row">
+  <div class="col-sm-4 panel">
+    <h4>Description</h4>
+    <h5>{{project.desc}}</h5>
+    <hr/>
 
-    <br/>
-    <div class="col-xs-12">
-        <div class="col-xs-12">
-            <h5><strong>Description</strong></h5> {{project.desc}}
-        </div>
-        <div class="col-xs-12">
-            <br/>
-            <br/>
-        </div>
-        <div class="col-xs-12">
-            <div class="col-xs-4">
-                <h5><strong>Transcription Deadline</strong></h5>
-                <br/> {{project.transcDeadline}}
-            </div>
-            <div class="col-xs-4">
-                <h5><strong>Embargo Date</strong></h5>
-                <br/> {{project.embargoDate}}
-            </div>
-            <div class="col-xs-4">
-                <h5><strong>Visibility</strong></h5>
-                <br/> {{project.visibility}}
-            </div>
+    <h4>Transcription Deadline</h4>
+    <h5>{{project.transcDeadline}}</h5>
+    <hr/>
 
-        </div>
+    <h4>Embargo Date</h4>
+    <h5>{{project.embargoDate}}</h5>
+    <hr/>
 
-        <div class="col-xs-12">
-            <br/>
-            <br/>
-        </div>
-
-        <div class="col-sm-12">
-            <div class="col-sm-4">
-                <h5><strong>No. of Docs</strong></h5>
-                <br/> {{project.nod}}
-            </div>
-            <div class="col-sm-4">
-                <h5><strong>No. of Docs Transcd</strong></h5>
-                <br/> {{project.notd}}
-            </div>
-            <div class="col-sm-4">
-                <h5><strong>Status</strong></h5>
-                <br/> {{project.status}}
-            </div>
-        </div>
-
-        <div class="col-xs-12">
-            <br/>
-            <br/>
-        </div>
-        <h4>Files </h4>
-
-        <div class="col-xs-12">
-            <div class="col-xs-4" ng-repeat="file in files" style="margin:5px;">
-                <a href="/project/{{project._id}}/transcribe/{{file._id}}"><center>
-                    <img src="/api/download/{{file.identifier}}" width="100%"
-                      ng-click="transcribeImage(file)"></td>
-                    {{file.name}}
-                </center></a>
-            </div>
-
-        </div>
+    <div class="row" style="text-align:center;">
+      <div class="col-xs-6" style="border-right:1px solid #ddd;">{{project.nod}}<br/>Docs</div>
+      <div class="col-xs-6">{{project.nod}}<br/>Transcribed</div>
     </div>
+    <hr/>
+    <div class="row" style="text-align:center;">
+      <div class="col-xs-6" style="text-align:center;">{{project.status}}</div>
+      <div class="col-xs-6"><i>{{project.visibility}}</i></div>
+    </div>
+    <br/>
+  </div>
+  <div class="col-sm-8">
+    <div class="col-xs-12" style="text-align:center;" ng-show="files.length === 0">
+      <br/><br/>
+      <p class="lead"><h3>Sorry.. No files have been added yet.. </h3></p>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-4" ng-repeat="file in files" style="margin:5px;">
+            <a href="/project/{{project._id}}/transcribe/{{file._id}}"><center>
+                <img src="/api/download/{{file.identifier}}" width="100%"
+                  ng-click="transcribeImage(file)"></td>
+                {{file.name}}
+            </center></a>
+        </div>
+
+    </div>
+  </div>
 </div>
-
-
-<!--
-{"_id":"56ca38819ad322cc57000002","name":"ProjectX","desc":"desc of project X","visibility":"public","user":"ranji","__v":0}
--->
