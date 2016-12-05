@@ -86,6 +86,7 @@ app.post('/', function(req,res) {
 
 app.put('/:projectId', function(req,res) {
     var updatedData = req.body;
+    // TODO : validate schema
     if ("schema" in updatedData) {
       updatedData['status'] = 'ready';
     }
