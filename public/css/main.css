@@ -2,8 +2,14 @@ html {
     position: relative;
     min-height: 100%;
 }
-.pad10 {
-  padding:10px;
+.tag {
+  background-color: #FCD595;
+  color: #f00;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5%;
+  margin-left: 5px;
 }
 .imgDisplay {
     overflow-x: scroll;
@@ -19,6 +25,11 @@ html {
 .btn-secondary {
     background-color: #fff;
     border: 1px solid #ddd;
+}
+.btn-xs {
+  text-decoration: none;
+  background: inherit;
+  border: none;
 }
 .panel {
     border: 2px #EEE solid;

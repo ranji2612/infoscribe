@@ -1,0 +1,20 @@
+/*
+  All text and text formatting related style classes
+*/
+
+.small {
+  font-size: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.plain {
+  text-decoration: none;
+  color: inherit;
+}
+
+.plain:hover {
+  text-decoration: none;
+}

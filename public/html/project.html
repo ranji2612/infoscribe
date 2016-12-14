@@ -1,42 +1,52 @@
 <!-- Project Details -->
 <script src="flow.js"></script>
 <div class="row panel">
-    <div class="col-sm-8">
-      <strong><h2>{{project.name}} &nbsp;&nbsp;</h2></strong>
+    <div class="col-sm-12">
+      <h3>{{project.name}}</h3>
     </div>
-    <div class="col-sm-4" style="text-align:right">
-      <strong><h2>
-        <a target="_self" ng-href="{{csv_link}}" class="btn btn-default btn-sm">
-          Downoad csv
-        </a>
-        <a href="/project/{{project._id}}/edit" class="btn btn-primary btn-sm">Edit</a>
-      </h2></strong>
+    <div class="col-sm-12" style="display: inline-flex; padding-bottom:5px;">
+      <div class="tag" ng-repeat="tagName in project.keywords">{{tagName}}</div>
     </div>
 </div>
 <div class="row">
-  <div class="col-sm-3 panel">
-    <h4>Description</h4>
-    <h5>{{project.desc}}</h5>
-    <hr/>
-
-    <h4>Transcription Deadline</h4>
-    <h5>{{project.transcDeadline}}</h5>
-    <hr/>
-
-    <h4>Embargo Date</h4>
-    <h5>{{project.embargoDate}}</h5>
-    <hr/>
-
-    <div class="row" style="text-align:center;">
-      <div class="col-xs-6" style="border-right:1px solid #ddd;">{{project.nod}}<br/>Docs</div>
-      <div class="col-xs-6">{{project.notd}}<br/>Transcribed</div>
+  <div class="col-sm-3">
+    <div class="row panel small center">
+      <!-- Buttons for actions like download edit etc -->
+      <a class="col-sm-6 pad10 plain" href="#">
+        Edit&nbsp;&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-pencil"></span>
+      </a>
+      <a class="col-sm-6 pad10 plain" target="_self" ng-href="{{csv_link}}">
+        Download&nbsp;&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-save"></span>
+      </a>
     </div>
-    <hr/>
-    <div class="row" style="text-align:center;">
-      <div class="col-xs-6" style="text-align:center;">{{project.status}}</div>
-      <div class="col-xs-6"><i>{{project.visibility}}</i></div>
+    <div class="row panel">
+      <div class="col-sm-12">
+        <h4>Description</h4>
+        <h5>{{project.desc}}</h5>
+        <hr/>
+
+        <h4>Transcription Deadline</h4>
+        <h5>{{project.transcDeadline}}</h5>
+        <hr/>
+
+        <h4>Embargo Date</h4>
+        <h5>{{project.embargoDate}}</h5>
+        <hr/>
+
+        <div class="row" style="text-align:center;">
+          <div class="col-xs-6" style="border-right:1px solid #ddd;">{{project.nod}}<br/>Docs</div>
+          <div class="col-xs-6">{{project.notd}}<br/>Transcribed</div>
+        </div>
+        <hr/>
+        <div class="row" style="text-align:center;">
+          <div class="col-xs-6" style="text-align:center;">{{project.status}}</div>
+          <div class="col-xs-6"><i>{{project.visibility}}</i></div>
+        </div>
+        <br/>
+      </div>
     </div>
-    <br/>
   </div>
   <!-- Right column -->
   <div class="col-sm-9">
