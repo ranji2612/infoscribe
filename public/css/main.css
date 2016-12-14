@@ -6,6 +6,10 @@ html {
     overflow-x: scroll;
     overflow-y: scroll;
 }
+.projectImage {
+    padding:10px;
+    text-overflow: ellipsis;
+}
 .btn-primary {
     background-color: #252525;
 }

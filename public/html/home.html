@@ -12,7 +12,8 @@
   	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <base href="/">
   </head>
-<body ng-app="mainApp" flow-init>
+<body ng-app="mainApp" flow-init
+  flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
 	<div ng-controller="homeCtrl">
 
 		<!-- Navbar -->

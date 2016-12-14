@@ -1,5 +1,6 @@
 //Current rate collection
 var uploadColl  = require('./files.model');
+var project  = require('./../project/project.model');
 
 var mongoose 	= require('mongoose');
 var ObjectId 	= mongoose.Types.ObjectId;
@@ -15,7 +16,18 @@ app.post('/', function(req,res){
     //Update in DB and then send..
     uploadColl.create(req.body,function(err,data){
         if(err) res.send(err);
-        res.json(data);
+        project.findOneAndUpdate(
+          {'_id' : req.body.projectId},
+          { $inc: { 'nod' : 1 }}
+        , function(err, updateRes) {
+            if(err) {
+              console.log(err);
+              res.json({"status":"error","error":err,"message":"did not update projects"});
+            } else {
+              res.json(data);
+            }
+        });
+
     });
 
 });

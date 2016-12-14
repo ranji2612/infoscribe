@@ -1,5 +1,5 @@
 app.controller('editProjectCtrl', function($scope,$http, $location, $routeParams) {
-    console.log('Edit Project under control..');
+    console.log('Edit Project under control..', $scope.$flow);
 
     $('.datepicker').datepicker({
         startDate: '-3d'
@@ -64,7 +64,7 @@ app.controller('editProjectCtrl', function($scope,$http, $location, $routeParams
 
         //Update the no of docs
         $scope.newValue.nod += $scope.$flow.files.length;
-        
+
         //Post call
         $http.put('/api/project/'+$scope.oldProjectData["_id"],$scope.newValue)
         .success(function(data){

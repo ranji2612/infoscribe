@@ -1,5 +1,5 @@
-app.controller('singleProjectCtrl', function($scope,$http, $routeParams) {
-    console.log('Single Project under control..');
+app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route, $templateCache) {
+    console.log('Single Project under control..', $scope.$flow);
     $scope.projectId = $routeParams.projectId;
 
     $scope.csv_link = '/api/project/' + $scope.projectId + '/download';
@@ -39,4 +39,37 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams) {
         console.log(err);
     });
 
+    $scope.updateImageFiles = function() {
+        console.log('----ooo--');
+        $scope.$flow.resume();
+        //Updating values of image files
+        console.log($scope.$flow.files);
+        var newFiles = [];
+        for(i in $scope.$flow.files) {
+                var postData = {"name":$scope.$flow.files[i]['name'],
+                                "identifier":$scope.$flow.files[i]['uniqueIdentifier'],
+                                "size" : $scope.$flow.files[i]['size'],
+                                "relativePath" : $scope.$flow.files[i]['relativePath'],
+                                "projectId" : $scope.project["_id"]};
+
+
+                $http.post('/api/files',postData)
+                .success(function(data){
+                    //It internally updates the corresponding project
+                   console.log(data);
+                   var currentPageTemplate = $route.current.templateUrl;
+                   $templateCache.remove(currentPageTemplate);
+                   $route.reload();
+                })
+                .error(function(err){
+                    console.log(err);
+                });
+        }
+
+        $scope.$flow.files = [];
+    };
+
+  $scope.$on('flow::filesSubmitted', function (event, $flow, flowFile) {
+    $scope.updateImageFiles();
+  });
 });
