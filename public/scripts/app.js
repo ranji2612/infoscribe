@@ -50,7 +50,6 @@ app.config(function ($routeProvider, $locationProvider) {
 
 
 app.controller('homeCtrl', function ($scope,$http,$location) {
-	console.log('Home control is under control :P ');
     $('.datepicker').datepicker({
         startDate: '-3d'
     });

@@ -1,5 +1,4 @@
 app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route, $templateCache) {
-    console.log('Single Project under control..', $scope.$flow);
     $scope.projectId = $routeParams.projectId;
 
     $scope.csv_link = '/api/project/' + $scope.projectId + '/download';
@@ -17,9 +16,6 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
             res.redirectTo('/');
         } else {
             data = data[0];
-            console.log(data);
-            data.transcDeadline = new Date(data.transcDeadline);
-            data.embargoDate = new Date(data.embargoDate);
             //This has all the details of the project and also the template of the transcribing
             data['schema'] = {"count":1,"fields": [{"i":1,"x":10,"y":10,"w":35,"h":10,"t":"String"},{"i":2,"x":10,"y":10,"w":35,"h":10,"t":"Date"}]};
             $scope.project = data;
@@ -33,17 +29,14 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
     $http.get('/api/files/'+$routeParams.projectId)
     .success(function(data){
         $scope.files = data;
-        console.log(data);
     })
     .error(function(err){
         console.log(err);
     });
 
     $scope.updateImageFiles = function() {
-        console.log('----ooo--');
         $scope.$flow.resume();
         //Updating values of image files
-        console.log($scope.$flow.files);
         var newFiles = [];
         for(i in $scope.$flow.files) {
                 var postData = {"name":$scope.$flow.files[i]['name'],
@@ -56,7 +49,6 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
                 $http.post('/api/files',postData)
                 .success(function(data){
                     //It internally updates the corresponding project
-                   console.log(data);
                    var currentPageTemplate = $route.current.templateUrl;
                    $templateCache.remove(currentPageTemplate);
                    $route.reload();
@@ -68,7 +60,17 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
 
         $scope.$flow.files = [];
     };
-
+  $scope.getDateString = function(t) {
+    var d = new Date(t);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = d.getFullYear();
+    var month = months[d.getMonth()];
+    var date = d.getDate();
+    var hour = d.getHours();
+    var min = d.getMinutes();
+    var sec = d.getSeconds();
+    return month + ' ' + date + ', ' + year;
+  }
   $scope.$on('flow::filesSubmitted', function (event, $flow, flowFile) {
     $scope.updateImageFiles();
   });

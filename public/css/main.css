@@ -2,6 +2,9 @@ html {
     position: relative;
     min-height: 100%;
 }
+.navbar {
+  background-color: #2C2C2C;
+}
 .tag {
   background-color: #FCD595;
   color: #f00;
@@ -92,7 +95,7 @@ strong {
 }
 .details {
     font-size: 9px;
-    background: #222;
+    background: #2C2C2C;
     color: #EEE;
     text-decoration: none;
     max-height: 300px;
