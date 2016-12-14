@@ -5,6 +5,10 @@ html {
 .navbar {
   background-color: #2C2C2C;
 }
+.sqbtn {
+  border: 0px;
+  border-radius: 0%;
+}
 .tag {
   background-color: #FCD595;
   color: #f00;
@@ -23,7 +27,7 @@ html {
     text-overflow: ellipsis;
 }
 .btn-primary {
-    background-color: #252525;
+    background-color: #2C2C2C;
 }
 .btn-secondary {
     background-color: #fff;

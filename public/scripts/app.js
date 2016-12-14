@@ -51,7 +51,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.controller('homeCtrl', function ($scope,$http,$location) {
     $('.datepicker').datepicker({
-        startDate: '-3d'
+        startDate: '0d'
     });
     $scope.logout = function() {
         window.location.href = "/logout";

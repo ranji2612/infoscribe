@@ -1,7 +1,7 @@
 app.controller('createProjectCtrl', function($scope,$http, $location) {
     console.log('Create Project under control..');
     $('.datepicker').datepicker({
-        startDate: '-3d'
+        startDate: '-0d'
     });
     $scope.visibility="public";
 
