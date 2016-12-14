@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="row">
-  <div class="col-sm-4 panel">
+  <div class="col-sm-3 panel">
     <h4>Description</h4>
     <h5>{{project.desc}}</h5>
     <hr/>
@@ -39,7 +39,7 @@
     <br/>
   </div>
   <!-- Right column -->
-  <div class="col-sm-8">
+  <div class="col-sm-9">
     <div class="col-xs-12" style="text-align:center;" ng-show="files.length === 0">
       <br/><br/>
       <p class="lead"><h3>Sorry.. No files have been added yet.. </h3></p>
@@ -48,14 +48,27 @@
 
     <div class="col-xs-12">
         <div class="col-xs-4 projectImage" ng-repeat="file in files">
-            <a href="/project/{{project._id}}/transcribe/{{file._id}}"><center>
-                <div style="max-height:200px;overflow:hidden;box-shadow: 0px 0px 15px #888888;">
+          <center>
+            <div style="overflow:hidden;box-shadow: 0px 0px 15px #888888;">
+              <a style="text-decoration:none;" href="{{project.status === 'ready' ? '/project/'+project._id+'/transcribe/'+file._id : '#'}}">
+                <div style="max-height:200px;overflow:hidden;border-bottom: #777 solid 2px;">
                   <img src="/api/download/{{file.identifier}}"
                   width="100%" height="100%"
                   ng-click="transcribeImage(file)"/>
                 </div>
-                <div style="overflow:hidden;text-overflow: ellipsis;">{{file.name}}</div>
-            </center></a>
+                <div class="pad10" style="overflow:hidden;text-overflow: ellipsis;color:#111;">
+                  {{file.name}}
+                </div>
+              </a>
+              <a style="text-decoration:none;" href="/project/{{project._id}}/exemplar/{{file._id}}">
+                <div ng-if="project.status === 'draft'"
+                  class="pad10"
+                  style="background-color:#EF6775;color:#eee;overflow:hidden;text-overflow: ellipsis;">
+                  Set as Exemplar
+                </div>
+              </a>
+            </div>
+          </center>
         </div>
         <div class="col-xs-4" style="margin:5px;" ng-show="files.length === 0"></div>
         <div class="col-xs-4" style="padding:5px;" ng-hide="files.length > 8">
