@@ -1,6 +1,7 @@
 // config/passport.js
 
 // load all the things we need
+var request = require('request');
 var LocalStrategy   = require('passport-local').Strategy;
 
 // load up the user model
@@ -40,48 +41,62 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req,email, password, done) {
-		
-        // asynchronous
-        // User.findOne wont fire unless data is sent back
+	    //Verify captcha
+      // Put your secret key here.
+      var secretKey = "	6Ld_OQ8UAAAAAFvpLGX2tFcqIkZ5E3a9Ywm4RfGW";
+      // req.connection.remoteAddress will provide IP address of connected user.
+      var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+      // Hitting GET request to the URL, Google will respond with success or error scenario.
+      request(verificationUrl, function(error, response, body) {
+        body = JSON.parse(body);
+        console.log('captcha response', body);
+        // Success will be true or false depending upon captcha validation.
+        if(body.success !== undefined && !body.success) {
+          // Re-captcha failed
+          return done({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+        }
+        // Re-captcha success
         process.nextTick(function() {
-			
-	// find a user whose email is the same as the forms email
-	// we are checking to see if the user trying to login already exists
-        User.findOne({ 'email' :  email }, function(err, user) {
-        // if there are any errors, return the error
-	if (err)
-               return done(err);
-			
-        // check to see if there's already a user with that email
-        if (user) {
+
+          // find a user whose email is the same as the forms email
+          // we are checking to see if the user trying to login already exists
+          User.findOne({ 'email' :  email }, function(err, user) {
+            // if there are any errors, return the error
+            if (err)
+              return done(err);
+
+            // check to see if there's already a user with that email
+            if (user) {
+                console.log('Error email already present');
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-        } else {
-				
-		// if there is no user with that email
-                // create the user
-
-        var newUser            = new User();
-        // set the user's local credentials
-        newUser.email    = email;
-        newUser.password = newUser.generateHash(password);
-		newUser.givenName = req.param('givenName');
-		newUser.familyName = req.param('familyName');
-
-		//save the user info
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
+            } else {
+              // if there is no user with that email
+              // create the user
+              var newUser  = new User();
+              // set the user's local credentials
+              newUser.email    = email;
+              newUser.password = newUser.generateHash(password);
+              newUser.givenName = req.param('givenName');
+              newUser.familyName = req.param('familyName');
+              newUser.addInfo = req.param('addInfo');
+              newUser.isJournalist = req.param('isJournalist');
+              newUser.country = req.param('country');
+              newUser.orgName = req.param('orgName');
+              newUser.type = req.param('');
+              //save the user info
+              newUser.save(function(err) {
+                if (err)
+                    throw err;
+                return done(null, newUser);
+              });
             }
-
-        });    
-
+          });
         });
+      });
 
     }));
-	
-	
+
+
 	//LOGIN
 	passport.use('local-login', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
