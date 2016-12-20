@@ -1,45 +1,361 @@
-<!-- views/login.ejs -->
 <!doctype html>
 <html>
 <head>
-	<title>Infoscribe - SignUp</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-	<style>
-		body 		{ padding-top:80px; }
-	</style>
+	<title>Infoscribe - Signup</title>
+	<meta charset="utf-8" />
+	<!--  Meta tags for sharing -->
+	<!---->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/main.css" rel="stylesheet">
+	<link href="/css/text.css" rel="stylesheet">
+	<link href="/css/space.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+	<!-- lato-web font -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+	<base href="/">
 </head>
 <body>
-<div class="container">
+	<br/>
+	<br/>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
 
-<div class="col-sm-6 col-sm-offset-3">
+				<h3>Apply for an Infoscribe account</h3>
+				<hr/>
+				Get the chance to get your projects transcribed and transcibe pubic projects. For help, contact us.
+				<hr style="border-color:#ccc;"/>
 
-	<h1><span class="fa fa-sign-in"></span> Register</h1>
+				<!-- LOGIN FORM -->
+				<form action="/signup" method="post" onsubmit="return validateForm()" id="myForm">
+					<div class="row">
+						<div class="col-sm-12">
+							<h5>General Info</h5>
+						</div>
+						<div class="form-group col-sm-4">
+							<input type="text" class="form-control" name="givenName" placeholder="First Name*" required>
+						</div>
+						<div class="form-group col-sm-4">
+							<input type="text" class="form-control" name="familyName" placeholder="Last Name*" required>
+						</div>
+						<div class="form-group col-sm-4">
+							<input type="email" class="form-control" name="email" placeholder="E-mail address*" required>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<h5>Organization</h5>
+						</div>
+						<div class="form-group col-sm-4">
+							<input type="text" class="form-control" name="orgName" placeholder="Orgnaization Name">
+						</div>
+						<div class="form-group col-sm-4">
+							<input type="text" class="form-control" name="orgLink" placeholder="Org Website">
+						</div>
+						<div class="form-group col-sm-4">
+							<select class="input-md form-control input" id="countries" name="country"></select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<h5>Related Information</h5>
+						</div>
+						<div class="col-sm-12">
+							<h5>Are you a <b>Journalist</b>?</h5>
+							<input type="radio" name="isJournalist" value="yes" required>&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="isJournalist" value="no" checked required>&nbsp;&nbsp;No
+						</div>
+						<div class="col-sm-12">
+							<br/>
+							<textarea class="form-control input" style="min-height:100px;" placeholder="Any other details you want to add"></textarea>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="form-group col-sm-6">
+							<input type="password" class="form-control" name="password" required placeholder="Password">
+						</div>
+						<div class="form-group col-sm-6">
+							<input type="password" class="form-control" name="repassword" required placeholder="Re-enter Password">
+						</div>
+					</div>
+					<br/>
+					<div class="g-recaptcha" data-callback="capcha_filled" data-expired-callback="capcha_expired" data-sitekey="6Ld_OQ8UAAAAANKVodFOoRmbHuNFMlomj9cSxZoZ" required></div>
+					<br/>
+					<button type="submit" class="btn btn-warning btn-lg">Register</button>
+				</form>
 
-	<!-- LOGIN FORM -->
-	<form action="/signup" method="post">
-		<div class="form-group">
-			<label>First Name</label>
-			<input type="text" class="form-control" name="givenName">
+				<hr/>
+			</div>
 		</div>
-		<div class="form-group">
-			<label>Last Name</label>
-			<input type="text" class="form-control" name="familyName">
-		</div>
-		<div class="form-group">
-			<label>Email</label>
-			<input type="text" class="form-control" name="email">
-		</div>
-		<div class="form-group">
-			<label>Password</label>
-			<input type="password" class="form-control" name="password">
-		</div>
-		<button type="submit" class="btn btn-warning btn-lg">Register</button>
-	</form>
+	</div>
+	<script>
+		function populateSelect() {
+			var countriesList = {
+			 'AF': 'Afghanistan',
+			 'AL': 'Albania',
+			 'DZ': 'Algeria',
+			 'AS': 'American Samoa',
+			 'AD': 'Andorra',
+			 'AO': 'Angola',
+			 'AI': 'Anguilla',
+			 'AQ': 'Antarctica'  ,
+			 'AG': 'Antigua and Barbuda' ,
+			 'AR': 'Argentina' ,
+			 'AM': 'Armenia' ,
+			 'AW': 'Aruba' ,
+			 'AU': 'Australia' ,
+			 'AT': 'Austria' ,
+			 'AZ': 'Azerbaijan'  ,
+			 'BH': 'Bahrain' ,
+			 'BD': 'Bangladesh',
+			 'BB': 'Barbados'  ,
+			 'BY': 'Belarus',
+			 'BE': 'Belgium',
+			 'BZ': 'Belize',
+			 'BJ': 'Benin',
+			 'BM': 'Bermuda',
+			 'BT': 'Bhutan',
+			 'BO': 'Bolivia',
+			 'BA': 'Bosnia and Herzegovina',
+			 'BW': 'Botswana',
+			 'BV': 'Bouvet Island',
+			 'BR': 'Brazil',
+			 'IO': 'British Indian Ocean Territory',
+			 'VG': 'British Virgin Islands',
+			 'BN': 'Brunei',
+			 'BG': 'Bulgaria',
+			 'BF': 'Burkina Faso',
+			 'BI': 'Burundi',
+			 'CI': 'Côte d\'Ivoire',
+			 'KH': 'Cambodia',
+			 'CM': 'Cameroon',
+			 'CA': 'Canada',
+			 'CV': 'Cape Verde',
+			 'KY': 'Cayman Islands',
+			 'CF': 'Central African Republic',
+			 'TD': 'Chad',
+			 'CL': 'Chile',
+			 'CN': 'China',
+			 'CX': 'Christmas Island',
+			 'CC': 'Cocos (Keeling) Islands',
+			 'CO': 'Colombia',
+			 'KM': 'Comoros',
+			 'CG': 'Congo',
+			 'CK': 'Cook Islands',
+			 'CR': 'Costa Rica',
+			 'HR': 'Croatia',
+			 'CU': 'Cuba',
+			 'CY': 'Cyprus',
+			 'CZ': 'Czech Republic',
+			 'CD': 'Democratic Republic of the Congo',
+			 'DK': 'Denmark',
+			 'DJ': 'Djibouti',
+			 'DM': 'Dominica',
+			 'DO': 'Dominican Republic',
+			 'TP': 'East Timor',
+			 'EC': 'Ecuador',
+			 'EG': 'Egypt',
+			 'SV': 'El Salvador',
+			 'GQ': 'Equatorial Guinea',
+			 'ER': 'Eritrea',
+			 'EE': 'Estonia',
+			 'ET': 'Ethiopia',
+			 'FO': 'Faeroe Islands',
+			 'FK': 'Falkland Islands',
+			 'FJ': 'Fiji',
+			 'FI': 'Finland',
+			 'MK': 'Former Yugoslav Republic of Macedonia',
+			 'FR': 'France',
+			 'FX': 'France, Metropolitan',
+			 'GF': 'French Guiana',
+			 'PF': 'French Polynesia',
+			 'TF': 'French Southern Territories',
+			 'GA': 'Gabon',
+			 'GE': 'Georgia',
+			 'DE': 'Germany',
+			 'GH': 'Ghana',
+			 'GI': 'Gibraltar',
+			 'GR': 'Greece',
+			 'GL': 'Greenland',
+			 'GD': 'Grenada',
+			 'GP': 'Guadeloupe',
+			 'GU': 'Guam',
+			 'GT': 'Guatemala',
+			 'GN': 'Guinea',
+			 'GW': 'Guinea-Bissau',
+			 'GY': 'Guyana',
+			 'HT': 'Haiti',
+			 'HM': 'Heard and Mc Donald Islands',
+			 'HN': 'Honduras',
+			 'HK': 'Hong Kong',
+			 'HU': 'Hungary',
+			 'IS': 'Iceland',
+			 'IN': 'India',
+			 'ID': 'Indonesia',
+			 'IR': 'Iran',
+			 'IQ': 'Iraq',
+			 'IE': 'Ireland',
+			 'IL': 'Israel',
+			 'IT': 'Italy',
+			 'JM': 'Jamaica',
+			 'JP': 'Japan',
+			 'JO': 'Jordan',
+			 'KZ': 'Kazakhstan',
+			 'KE': 'Kenya',
+			 'KI': 'Kiribati',
+			 'KW': 'Kuwait',
+			 'KG': 'Kyrgyzstan',
+			 'LA': 'Laos',
+			 'LV': 'Latvia',
+			 'LB': 'Lebanon',
+			 'LS': 'Lesotho',
+			 'LR': 'Liberia',
+			 'LY': 'Libya',
+			 'LI': 'Liechtenstein',
+			 'LT': 'Lithuania',
+			 'LU': 'Luxembourg',
+			 'MO': 'Macau',
+			 'MG': 'Madagascar',
+			 'MW': 'Malawi',
+			 'MY': 'Malaysia',
+			 'MV': 'Maldives',
+			 'ML': 'Mali',
+			 'MT': 'Malta',
+			 'MH': 'Marshall Islands',
+			 'MQ': 'Martinique',
+			 'MR': 'Mauritania',
+			 'MU': 'Mauritius',
+			 'MT': 'Mayotte',
+			 'MX': 'Mexico',
+			 'FM': 'Micronesia',
+			 'MD': 'Moldova',
+			 'MC': 'Monaco',
+			 'MN': 'Mongolia',
+			 'ME': 'Montenegro',
+			 'MS': 'Montserrat',
+			 'MA': 'Morocco',
+			 'MZ': 'Mozambique',
+			 'MM': 'Myanmar',
+			 'NA': 'Namibia',
+			 'NR': 'Nauru',
+			 'NP': 'Nepal',
+			 'NL': 'Netherlands',
+			 'AN': 'Netherlands Antilles',
+			 'NC': 'New Caledonia',
+			 'NZ': 'New Zealand',
+			 'NI': 'Nicaragua',
+			 'NE': 'Niger',
+			 'NG': 'Nigeria',
+			 'NU': 'Niue',
+			 'NF': 'Norfolk Island',
+			 'KP': 'North Korea',
+			 'MP': 'Northern Marianas',
+			 'NO': 'Norway',
+			 'OM': 'Oman',
+			 'PK': 'Pakistan',
+			 'PW': 'Palau',
+			 'PA': 'Panama',
+			 'PG': 'Papua New Guinea',
+			 'PY': 'Paraguay',
+			 'PE': 'Peru',
+			 'PH': 'Philippines',
+			 'PN': 'Pitcairn Islands',
+			 'PL': 'Poland',
+			 'PT': 'Portugal',
+			 'PR': 'Puerto Rico',
+			 'QA': 'Qatar',
+			 'RE': 'Reunion',
+			 'RO': 'Romania',
+			 'RU': 'Russia',
+			 'RW': 'Rwanda',
+			 'ST': 'São Tomé and Príncipe',
+			 'SH': 'Saint Helena',
+			 'PM': 'St. Pierre and Miquelon',
+			 'KN': 'Saint Kitts and Nevis',
+			 'LC': 'Saint Lucia',
+			 'VC': 'Saint Vincent and the Grenadines',
+			 'WS': 'Samoa',
+			 'SM': 'San Marino',
+			 'SA': 'Saudi Arabia',
+			 'SN': 'Senegal',
+			 'RS': 'Serbia',
+			 'SC': 'Seychelles',
+			 'SL': 'Sierra Leone',
+			 'SG': 'Singapore',
+			 'SK': 'Slovakia',
+			 'SI': 'Slovenia',
+			 'SB': 'Solomon Islands',
+			 'SO': 'Somalia',
+			 'ZA': 'South Africa',
+			 'GS': 'South Georgia and the South Sandwich Islands',
+			 'KR': 'South Korea',
+			 'ES': 'Spain',
+			 'LK': 'Sri Lanka',
+			 'SD': 'Sudan',
+			 'SR': 'Suriname',
+			 'SJ': 'Svalbard and Jan Mayen Islands',
+			 'SZ': 'Swaziland',
+			 'SE': 'Sweden',
+			 'CH': 'Switzerland',
+			 'SY': 'Syria',
+			 'TW': 'Taiwan',
+			 'TJ': 'Tajikistan',
+			 'TZ': 'Tanzania',
+			 'TH': 'Thailand',
+			 'BS': 'The Bahamas',
+			 'GM': 'The Gambia',
+			 'TG': 'Togo',
+			 'TK': 'Tokelau',
+			 'TO': 'Tonga',
+			 'TT': 'Trinidad and Tobago',
+			 'TN': 'Tunisia',
+			 'TR': 'Turkey',
+			 'TM': 'Turkmenistan',
+			 'TC': 'Turks and Caicos Islands',
+			 'TV': 'Tuvalu',
+			 'VI': 'US Virgin Islands',
+			 'UG': 'Uganda',
+			 'UA': 'Ukraine',
+			 'AE': 'United Arab Emirates',
+			 'GB': 'United Kingdom',
+			 'UM': 'United States Minor Outlying Islands',
+			 'UY': 'Uruguay',
+			 'UZ': 'Uzbekistan',
+			 'VU': 'Vanuatu',
+			 'VA': 'Vatican City',
+			 'VE': 'Venezuela',
+			 'VN': 'Vietnam',
+			 'WF': 'Wallis and Futuna Islands',
+			 'EH': 'Western Sahara',
+			 'YE': 'Yemen',
+			 'ZM': 'Zambia',
+			 'ZW': 'Zimbabwe',
+			 'US': 'United States',
+		 };
 
-	<hr>
-</div>
-
-</div>
+		 // Adding countriesList
+		 for (var i in countriesList) {
+			 document.getElementById('countries').innerHTML += "<option value='"+i+"' selected>"+countriesList[i]+"</option>";
+		 }
+		}
+		var allowSubmit = false;
+		// Handling capcha
+		function capcha_filled () {
+			allowSubmit = true;
+		}
+		function capcha_expired () {
+	    allowSubmit = false;
+		}
+	 	function validateForm() {
+			return allowSubmit;
+		}
+		populateSelect();
+	</script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="js/bootstrap-formhelpers.min.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 </html>
