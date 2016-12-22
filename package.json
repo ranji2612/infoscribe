@@ -4,6 +4,9 @@
   "description": "Infoscibe Application.",
   "main": "server.js",
   "author": "Ranjith Kumar S (ranji2612)",
+  "scripts": {
+    "start": "grunt"
+  },
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.15.0",
@@ -12,6 +15,7 @@
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "grunt": "latest",
     "json2csv": "^3.7.1",
     "log4js": "^0.6.31",
     "mongoose": "~3.6.2",
@@ -23,5 +27,12 @@
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
     "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-express-server": "^0.5.3",
+    "grunt-shell-spawn": "^0.3.10",
+    "load-grunt-tasks": "^3.5.2"
   }
 }
