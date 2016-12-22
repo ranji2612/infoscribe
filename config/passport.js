@@ -82,7 +82,7 @@ module.exports = function(passport) {
               newUser.isJournalist = req.param('isJournalist');
               newUser.country = req.param('country');
               newUser.orgName = req.param('orgName');
-              newUser.type = req.param('');
+              newUser.type = '';
               //save the user info
               newUser.save(function(err) {
                 if (err)

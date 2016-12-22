@@ -12,6 +12,7 @@ var userSchema = mongoose.Schema({
 	country: String,
 	isJournalist : Boolean,
 	addInfo: String,
+	type: String,
 });
 
 //method to hash password

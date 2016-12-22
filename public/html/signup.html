@@ -3,20 +3,16 @@
 <head>
 	<title>Infoscribe - Signup</title>
 	<meta charset="utf-8" />
-	<!--  Meta tags for sharing -->
-	<!---->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/css/main.css" rel="stylesheet">
 	<link href="/css/text.css" rel="stylesheet">
 	<link href="/css/space.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 	<!-- lato-web font -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
 	<base href="/">
 </head>
-<body>
+<body ng-app="signupPage" ng-controller="signupPage">
 	<br/>
 	<br/>
 	<div class="container">
@@ -84,7 +80,7 @@
 					<br/>
 					<div class="g-recaptcha" data-callback="capcha_filled" data-expired-callback="capcha_expired" data-sitekey="6Ld_OQ8UAAAAANKVodFOoRmbHuNFMlomj9cSxZoZ" required></div>
 					<br/>
-					<button type="submit" class="btn btn-warning btn-lg">Register</button>
+					<button type="submit" class="btn btn-warning btn-lg" ng-click="validateForm()">Register</button>
 				</form>
 
 				<hr/>
@@ -355,7 +351,10 @@
 		populateSelect();
 	</script>
 	<script src="/js/jquery.min.js"></script>
-	<script src="js/bootstrap-formhelpers.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/js/angular.min.js"></script>
+	<script src="/js/angular-route.min.js"></script>
+	<script src="/scripts/signupCtrl.js" ></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 </html>
