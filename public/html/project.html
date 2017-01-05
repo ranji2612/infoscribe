@@ -35,12 +35,12 @@
 
         <h4>Transcription Deadline</h4>
         <h5 ng-hide="isEdit">{{getDateString(project.transcDeadline)}}</h5>
-        <input ng-show="isEdit" id="transcDeadline" name="transcDeadline" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/>
+        <input ng-show="isEdit" id="transcDeadline" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/>
         <hr/>
 
         <h4>Embargo Date</h4>
         <h5 ng-hide="isEdit">{{getDateString(project.embargoDate)}}</h5>
-        <input ng-show="isEdit" id="embargoDate" name="embargoDate" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/>
+        <input ng-show="isEdit" id="embargoDate" class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" required/>
         <hr/>
 
         <div class="row" style="text-align:center;" ng-hide="isEdit">
@@ -102,16 +102,6 @@
             </div>
           </center>
         </div>
-        <!-- <div class="col-xs-4" style="margin:5px;" ng-show="files.length === 0"></div> -->
-        <!-- <div class="col-xs-4" style="padding:5px;" ng-hide="files.length > 8">
-          <center>
-            <span class="btn btn-lg" flow-btn flow-attrs="{accept:'image/*'}">
-              <span class="glyphicon glyphicon-cloud-upload" style="font-size:5.5em;" aria-hidden="true"></span>
-              <br/><br/>
-              <h4>Add Files</h4>
-            </span>
-          </center>
-        </div> -->
     </div>
   </div>
 </div>

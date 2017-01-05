@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+/* jshint loopfunc:true */
 app.controller('transcribeFileCtrl', function($scope,$http, $location, $routeParams) {
     $scope.projectId = $routeParams.projectId;
     $scope.fileId = $routeParams.fileId;
@@ -10,7 +12,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
     var canvas = document.getElementById('transcribeImage'),
         ctx = canvas.getContext('2d'),
         line = new Line(ctx),
-        img = new Image;
+        img = new Image();
     ctx.font="20px Tahoma";
     ctx.fillStyle = 'white';
     img.onload = start;
@@ -25,7 +27,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
         ctx.moveTo(me.x1, me.y1);
         ctx.lineTo(me.x2, me.y2);
         ctx.stroke();
-      }
+      };
     }
 
     /* Graph Helper functions */
@@ -79,7 +81,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
     // Get Project Details
     $http.get('/api/project/'+$scope.projectId)
     .success(function(data) {
-        if(data.length == 0) {
+        if(data.length === 0) {
             console.log('Invalid projcet Id');
             res.redirectTo('/');
         } else {
@@ -89,7 +91,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
             //This has all the details of the project and also the template of the transcribing
             $scope.project = data;
             $scope.project.schema.map(function(elem){
-              $scope.transResult[elem['no']] = '';
+              $scope.transResult[elem.no] = '';
             });
             console.log($scope.transResult);
         }
@@ -100,7 +102,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
     // Get Transription details for this file by the user
     $http.get('/api/transcribe/project/'+$scope.projectId+'/file/'+$scope.fileId)
     .success(function(data) {
-        if(data.length == 0) {
+        if(data.length === 0) {
             console.log('Invalid projcet Id');
             res.redirectTo('/');
         } else {
@@ -110,7 +112,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
             //This has all the details of the project and also the template of the transcribing
             $scope.project = data;
             $scope.project.schema.map(function(elem){
-              $scope.transResult[elem['no']] = '';
+              $scope.transResult[elem.no] = '';
             });
             console.log($scope.transResult);
         }
@@ -127,9 +129,8 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
       console.log($scope.rectanglesVisibility);
       if(('schema' in $scope.project)) {
         $scope.isImageLoaded = true;
-        console.log('----Yayyy');
         for(var i=0; i< $scope.project.schema.length;i++) {
-          var pos = $scope.project.schema[i]['pos'];
+          var pos = $scope.project.schema[i].pos;
           pos = pos.map(function(elem){
             return elem * document.getElementById('transcribeImage').width / 500;
           });
@@ -151,7 +152,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
       // TODO: Check if the types and input matches
       var err = Object.keys(results).map(function(key){
         if (results[key]==='') {
-          return "Field "+(parseInt(key)+1)+" is empty"
+          return "Field "+(parseInt(key)+1)+" is empty";
         }
       });
       return err.filter(function(item){
@@ -163,7 +164,7 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
       console.log($scope.transResult);
       var err = $scope.checkForm($scope.transResult);
       var errBox = document.getElementById('errBox');
-      errBox.style.display = "none"
+      errBox.style.display = "none";
       errBox.innerHTML = "";
       if (err.length !== 0) {
         // Display the error
@@ -174,8 +175,8 @@ app.controller('transcribeFileCtrl', function($scope,$http, $location, $routePar
       } else {
         var payload = $scope.transResult;
         // Elements to hash
-        payload['fileId'] = $scope.fileId;
-        payload['projectId'] = $scope.projectId;
+        payload.fileId = $scope.fileId;
+        payload.projectId = $scope.projectId;
         // Save the schema and redirect to the project page
         $http.post('/api/transcribe/', payload)
         .success(function(data){

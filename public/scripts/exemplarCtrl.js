@@ -1,3 +1,4 @@
+/* jshint loopfunc:true */
 app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
     console.log('exemplar under control..');
     $scope.projectId = $routeParams.projectId;
@@ -12,7 +13,7 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
     var canvas = document.getElementById('exemplarImage'),
         ctx = canvas.getContext('2d'),
         line = new Line(ctx),
-        img = new Image;
+        img = new Image();
 
     ctx.strokeStyle = '#111';
     ctx.font="20px Tahoma";
@@ -36,7 +37,7 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
         ctx.moveTo(me.x1, me.y1);
         ctx.lineTo(me.x2, me.y2);
         ctx.stroke();
-      }
+      };
     }
 
     /* Graph Helper functions */
@@ -101,7 +102,8 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
       $scope.savedRectangles.splice(index, 1);
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       drawSavedRects();
-    }
+    };
+
     function drawSavedRects() {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     	for(var i in $scope.savedRectangles) {
@@ -152,7 +154,7 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
       }
 
       return err;
-    }
+    };
 
     $scope.prepareData = function() {
       var data = [];
@@ -166,12 +168,12 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
         });
       }
       return {'schema': data};
-    }
+    };
 
     $scope.saveSchema = function() {
       var err = $scope.checkForm();
       var errBox = document.getElementById('errBox');
-      errBox.style.display = "none"
+      errBox.style.display = "none";
       errBox.innerHTML = "";
       if (err.length !== 0) {
         // Display the error
@@ -192,5 +194,5 @@ app.controller('exemplarCtrl', function($scope,$http, $location, $routeParams) {
             console.log(err);
         });
       }
-    }
+    };
 });

@@ -1,3 +1,4 @@
+/* jshint loopfunc:true */
 app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route, $templateCache) {
     $scope.projectId = $routeParams.projectId;
     $scope.isEdit = false;
@@ -15,19 +16,21 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
     //Get the specific project
     $http.get('/api/project/'+$scope.projectId)
     .success(function(data) {
-        if(data.length == 0) {
+        if(data.length === 0) {
             console.log('Invalid projcet Id');
             res.redirectTo('/');
         } else {
             data = data[0];
             //This has all the details of the project and also the template of the transcribing
-            data['schema'] = {"count":1,"fields": [{"i":1,"x":10,"y":10,"w":35,"h":10,"t":"String"},{"i":2,"x":10,"y":10,"w":35,"h":10,"t":"Date"}]};
+            data.schema = {"count":1,"fields": [{"i":1,"x":10,"y":10,"w":35,"h":10,"t":"String"},{"i":2,"x":10,"y":10,"w":35,"h":10,"t":"Date"}]};
             $scope.project = data;
             $scope.editProject = angular.copy(data);
-            $('#transcDeadline').datepicker('update', new Date($scope.editProject.transcDeadline));
-            $scope.editProject.transcDeadlineString = $('#transcDeadline').datepicker({dateFormat:'MM/DD/YYYY'}).val();
-            $('#embargoDate').datepicker('update', new Date($scope.editProject.embargoDate));
-            $scope.editProject.embargoDateString = $('#embargoDate').datepicker({dateFormat:'MM/DD/YYYY'}).val();
+
+            var d = new Date($scope.editProject.transcDeadline);
+            $('#transcDeadline').datepicker('update', new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+
+            d = new Date($scope.editProject.embargoDate);
+            $('#embargoDate').datepicker('setDate', new Date(d.getFullYear(), d.getMonth(), d.getDate()));
         }
     })
     .error(function(err) {
@@ -47,23 +50,23 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
         $scope.$flow.resume();
         //Updating values of image files
         var newFiles = [];
-        for(i in $scope.$flow.files) {
-                var postData = {"name":$scope.$flow.files[i]['name'],
-                                "identifier":$scope.$flow.files[i]['uniqueIdentifier'],
-                                "size" : $scope.$flow.files[i]['size'],
-                                "relativePath" : $scope.$flow.files[i]['relativePath'],
-                                "projectId" : $scope.project["_id"]};
+        for(var i in $scope.$flow.files) {
+                var postData = {"name":$scope.$flow.files[i].name,
+                                "identifier":$scope.$flow.files[i].uniqueIdentifier,
+                                "size" : $scope.$flow.files[i].size,
+                                "relativePath" : $scope.$flow.files[i].relativePath,
+                                "projectId" : $scope.project._id};
 
 
-                $http.post('/api/files',postData)
-                .success(function(data){
-                    //It internally updates the corresponding project
-                   var currentPageTemplate = $route.current.templateUrl;
-                   $templateCache.remove(currentPageTemplate);
-                   $route.reload();
+                $http.post('/api/files', postData)
+                .success(function(data) {
+                  // It internally updates the corresponding project
+                  var currentPageTemplate = $route.current.templateUrl;
+                  $templateCache.remove(currentPageTemplate);
+                  $route.reload();
                 })
-                .error(function(err){
-                    console.log(err);
+                .error(function(err) {
+                  console.log(err);
                 });
         }
 
@@ -89,9 +92,7 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
     if (status === 0) {
       $scope.editProject = angular.copy($scope.project);
       $('#transcDeadline').datepicker('update', new Date($scope.editProject.transcDeadline));
-      $scope.editProject.transcDeadlineString = $('#transcDeadline').datepicker({dateFormat:'MM/DD/YYYY'}).val();
       $('#embargoDate').datepicker('update', new Date($scope.editProject.embargoDate));
-      $scope.editProject.embargoDateString = $('#embargoDate').datepicker({dateFormat:'MM/DD/YYYY'}).val();
       $scope.isEdit = false;
     } else {
       $scope.editProject.transcDeadline = new Date($('#transcDeadline').datepicker().val());
@@ -103,7 +104,7 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
         "visibility" : $scope.editProject.visibility,
       };
       // Save edited project
-      $http.put('/api/project/'+$scope.project["_id"], payload)
+      $http.put('/api/project/'+$scope.project._id, payload)
       .success(function(data){
           console.log(data);
           if(data.status=="success") {
@@ -123,10 +124,8 @@ app.controller('singleProjectCtrl', function($scope,$http, $routeParams, $route,
 
   $scope.toggleEdit = function() {
     $scope.editProject = angular.copy($scope.project);
-    $('#transcDeadline').datepicker('update', new Date($scope.editProject.transcDeadline));
-    $scope.editProject.transcDeadlineString = $('#transcDeadline').datepicker({dateFormat:'MM/DD/YYYY'}).val();
-    $('#embargoDate').datepicker('update', new Date($scope.editProject.embargoDate));
-    $scope.editProject.embargoDateString = $('#embargoDate').datepicker({dateFormat:'MM/DD/YYYY'}).val();
+    // $('#transcDeadline').datepicker('update', new Date($scope.editProject.transcDeadline));
+    // $('#embargoDate').datepicker('update', new Date($scope.editProject.embargoDate));
     $scope.isEdit = !$scope.isEdit;
   };
 });
